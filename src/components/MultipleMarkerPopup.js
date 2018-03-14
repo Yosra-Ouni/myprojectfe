@@ -1,41 +1,51 @@
 import React from "react"
-import {Popup} from 'react-leaflet'
-import 'semantic-ui-css/semantic.min.css'
-import {Button, Icon, Container, Grid} from 'semantic-ui-react'
-import {initialData} from '../data.js'
-import SockJsClient from './SockJsClient'
 import {connect} from "react-redux"
-import {showHideModalAction} from '../actions/showHideModalAction'
-
+import store from '../store'
+import 'semantic-ui-css/semantic.min.css'
+import {Button, Icon, popup} from 'semantic-ui-react'
+import Control from 'react-leaflet-control'
+import {Marker, Popup} from 'react-leaflet'
+import {showHideModalAction} from "../actions/showHideModalAction"
 @connect((store) => {
     return {
-        devices: store.mainReducer.devices,
-        dcs: store.mainReducer.dcs,
-        rx: store.mainReducer.rx,
-        data1: store.mainReducer.data1
+        showModal: store.mainReducer.showModal,
     }
 })
+
 class MultipleMarkerPopup extends React.Component {
+
     render() {
+        const showModal = false
+        const icon = (device) => {
+            if (device.type === "device") return <Icon size={"large"} name={"selected radio"}/>
+            else if (device.type === "dc") return <Icon name={"database"}/>
+        }
         const listOfSameGps = () => {
-            { console.log(this.props.sameGps)
-                this.props.sameGps.map((device, i) => {
+            if (this.props.sameGps != undefined) {
+                return (
+                    <ul>
+                        {this.props.sameGps.map((device, i) => {
+                            return [(
+                                <div key={i}>
+                                    {icon(device)}
+                                    {device.type}
+                                    {device.id}
+                                    <Button content='Show Popup' primary size={'mini'} onClick={() => this.props.dispatch(showHideModalAction(this.props.dispatch, {showModal}, device))}/>
+                                </div>
+                            )]
+                        })
 
-                    if (this.props.device.type === "device") {
-                        <Icon name={"selected radio"}/>
-                    } else if (this.props.device.type === "dc") {
-                        <Icon name={"database"}/>
-                    }
-                    {this.props.device.type}
-                    {this.props.device.id}
-                    <Button content='Show Popup' primary/>
+                        }
+                    </ul>
+                )
 
-                })
             }
         }
+
         return (
             <Popup>
                 <div>
+
 
                     {/*<GridList cols={4} >*/}
                     {listOfSameGps()}

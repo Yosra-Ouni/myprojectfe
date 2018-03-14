@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ca324132-8db6-4caa-9f7b-c3a2cf4fd309" name="Default" comment="" />
+    <list default="true" id="ca324132-8db6-4caa-9f7b-c3a2cf4fd309" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/src/components/MultipleMarkerPopup.js" afterPath="$PROJECT_DIR$/src/components/MultipleMarkerPopup.js" />
+      <change beforePath="$PROJECT_DIR$/src/components/MyMap.js" afterPath="$PROJECT_DIR$/src/components/MyMap.js" />
+    </list>
     <ignored path="$PROJECT_DIR$/public/" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -18,23 +22,23 @@
       <file leaf-file-name="MyMap.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/MyMap.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-361">
-              <caret line="97" column="0" lean-forward="false" selection-start-line="97" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
+            <state relative-caret-position="1035">
+              <caret line="132" column="36" lean-forward="true" selection-start-line="132" selection-start-column="36" selection-end-line="132" selection-end-column="36" />
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
-                <marker date="1521017090815" expanded="true" signature="2403:2442" ph="{...}" />
-                <marker date="1521017090815" expanded="true" signature="3834:4130" ph="&lt;li/&gt;" />
-                <marker date="1521017090815" expanded="true" signature="4438:4766" ph="&lt;li/&gt;" />
+                <marker date="1521046819275" expanded="true" signature="2850:2893" ph="{...}" />
+                <marker date="1521046819275" expanded="true" signature="3763:3764" ph="{...}" />
+                <marker date="1521046819275" expanded="true" signature="3843:4140" ph="&lt;li/&gt;" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MarkerPopup.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="MarkerPopup.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/MarkerPopup.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="501">
-              <caret line="62" column="9" lean-forward="false" selection-start-line="62" selection-start-column="9" selection-end-line="62" selection-end-column="9" />
+            <state relative-caret-position="-120">
+              <caret line="32" column="8" lean-forward="false" selection-start-line="32" selection-start-column="8" selection-end-line="32" selection-end-column="31" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -45,37 +49,13 @@
       <file leaf-file-name="MultipleMarkerPopup.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/MultipleMarkerPopup.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-115">
-              <caret line="7" column="65" lean-forward="false" selection-start-line="7" selection-start-column="65" selection-end-line="7" selection-end-column="65" />
-              <folding>
-                <marker date="1521024415758" expanded="true" signature="373:546" ph="{...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EquipmentModal.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/EquipmentModal.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="64">
-              <caret line="48" column="34" lean-forward="false" selection-start-line="48" selection-start-column="34" selection-end-line="48" selection-end-column="34" />
+            <state relative-caret-position="138">
+              <caret line="18" column="34" lean-forward="true" selection-start-line="18" selection-start-column="34" selection-end-line="18" selection-end-column="34" />
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
-                <marker date="1521025395976" expanded="true" signature="489:2334" ph="{...}" />
-                <marker date="1521025395976" expanded="true" signature="675:2303" ph="{...}" />
-                <marker date="1521025395976" expanded="true" signature="2296:2301" ph="{...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="mainReducer.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/reducers/mainReducer.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="501">
-              <caret line="39" column="51" lean-forward="false" selection-start-line="39" selection-start-column="51" selection-end-line="39" selection-end-column="51" />
-              <folding>
-                <element signature="e#0#41#0" expanded="true" />
+                <marker date="1521046592972" expanded="true" signature="890:1521" ph="&lt;ul/&gt;" />
+                <marker date="1521046592972" expanded="true" signature="992:1445" ph="[...]" />
+                <marker date="1521046592972" expanded="true" signature="1039:1409" ph="&lt;li/&gt;" />
               </folding>
             </state>
           </provider>
@@ -102,6 +82,7 @@
       <find>boundsAction</find>
       <find>import axios from \'axios\'\n\nexport const initBoundsAction \= \(dispatch\, bounds\, data1\) \=\&gt; \{\n    return dispatch\(\{\n        type\: \'INIT_BOUNDS_ACTION\'\,\n        payload\:    axios\.post\(\'http\:\/\/localhost\:8080\/api\/equipments\/all\'\,bounds\)\n\n    \}\)\n\}</find>
       <find>listOfDevices</find>
+      <find>sameGps</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -148,14 +129,14 @@
         <option value="$PROJECT_DIR$/src/actions/boundsAction.js" />
         <option value="$PROJECT_DIR$/src/actions/initBoundsAction.js" />
         <option value="$PROJECT_DIR$/src/components/MySideBar.js" />
-        <option value="$PROJECT_DIR$/src/components/MyMap.js" />
         <option value="$PROJECT_DIR$/src/actions/showModalAction.js" />
         <option value="$PROJECT_DIR$/src/actions/hideDeviceAction.js" />
         <option value="$PROJECT_DIR$/src/actions/showHideModalAction.js" />
         <option value="$PROJECT_DIR$/src/reducers/mainReducer.js" />
-        <option value="$PROJECT_DIR$/src/components/MultipleMarkerPopup.js" />
         <option value="$PROJECT_DIR$/src/components/MarkerPopup.js" />
         <option value="$PROJECT_DIR$/src/components/EquipmentModal.js" />
+        <option value="$PROJECT_DIR$/src/components/MultipleMarkerPopup.js" />
+        <option value="$PROJECT_DIR$/src/components/MyMap.js" />
       </list>
     </option>
   </component>
@@ -296,12 +277,12 @@
       <workItem from="1520580652621" duration="22119000" />
       <workItem from="1520843239622" duration="24362000" />
       <workItem from="1520930142458" duration="16629000" />
-      <workItem from="1521015619248" duration="10845000" />
+      <workItem from="1521015619248" duration="25266000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="339795000" />
+    <option name="totallyTimeSpent" value="354216000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -344,7 +325,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="10" />
+      <option name="time" value="11" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -613,26 +594,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/MarkerPopup.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="501">
-          <caret line="62" column="9" lean-forward="false" selection-start-line="62" selection-start-column="9" selection-end-line="62" selection-end-column="9" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/MultipleMarkerPopup.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-115">
-          <caret line="7" column="65" lean-forward="false" selection-start-line="7" selection-start-column="65" selection-end-line="7" selection-end-column="65" />
-          <folding>
-            <marker date="1521024415758" expanded="true" signature="373:546" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/actions/showHideModalAction.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="23">
@@ -657,37 +618,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/MyMap.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-361">
-          <caret line="97" column="0" lean-forward="false" selection-start-line="97" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-            <marker date="1521017090815" expanded="true" signature="2403:2442" ph="{...}" />
-            <marker date="1521017090815" expanded="true" signature="3834:4130" ph="&lt;li/&gt;" />
-            <marker date="1521017090815" expanded="true" signature="4438:4766" ph="&lt;li/&gt;" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/actions/boundsAction.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="184">
           <caret line="8" column="1" lean-forward="true" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/EquipmentModal.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="64">
-          <caret line="48" column="34" lean-forward="false" selection-start-line="48" selection-start-column="34" selection-end-line="48" selection-end-column="34" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-            <marker date="1521025395976" expanded="true" signature="489:2334" ph="{...}" />
-            <marker date="1521025395976" expanded="true" signature="675:2303" ph="{...}" />
-            <marker date="1521025395976" expanded="true" signature="2296:2301" ph="{...}" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -699,12 +634,61 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/MyMap.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1035">
+          <caret line="132" column="36" lean-forward="true" selection-start-line="132" selection-start-column="36" selection-end-line="132" selection-end-column="36" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+            <marker date="1521046819275" expanded="true" signature="2850:2893" ph="{...}" />
+            <marker date="1521046819275" expanded="true" signature="3763:3764" ph="{...}" />
+            <marker date="1521046819275" expanded="true" signature="3843:4140" ph="&lt;li/&gt;" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/reducers/mainReducer.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="501">
+        <state relative-caret-position="340">
           <caret line="39" column="51" lean-forward="false" selection-start-line="39" selection-start-column="51" selection-end-line="39" selection-end-column="51" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/EquipmentModal.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-74">
+          <caret line="12" column="40" lean-forward="true" selection-start-line="12" selection-start-column="40" selection-end-line="12" selection-end-column="40" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+            <marker date="1521025395976" expanded="true" signature="489:2334" ph="{...}" />
+            <marker date="1521025395976" expanded="true" signature="675:2303" ph="{...}" />
+            <marker date="1521025395976" expanded="true" signature="2296:2301" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/MultipleMarkerPopup.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="18" column="34" lean-forward="true" selection-start-line="18" selection-start-column="34" selection-end-line="18" selection-end-column="34" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+            <marker date="1521046592972" expanded="true" signature="890:1521" ph="&lt;ul/&gt;" />
+            <marker date="1521046592972" expanded="true" signature="992:1445" ph="[...]" />
+            <marker date="1521046592972" expanded="true" signature="1039:1409" ph="&lt;li/&gt;" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/MarkerPopup.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-120">
+          <caret line="32" column="8" lean-forward="false" selection-start-line="32" selection-start-column="8" selection-end-line="32" selection-end-column="31" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
           </folding>
         </state>
       </provider>

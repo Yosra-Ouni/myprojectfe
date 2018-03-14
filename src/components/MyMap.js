@@ -15,12 +15,13 @@ import L from 'leaflet'
 import {boundsAction} from '../actions/boundsAction'
 import {initBoundsAction} from '../actions/initBoundsAction'
 import EquipmentModal from './EquipmentModal'
+
 @connect((store) => {
     return {
         devices: store.mainReducer.devices,
         dcs: store.mainReducer.dcs,
         data1: store.mainReducer.data1,
-        showModal : store.mainReducer.showModal
+        showModal: store.mainReducer.showModal
     }
 })
 
@@ -67,90 +68,86 @@ class MyMap extends React.Component {
         const markericon = L.icon({
             iconUrl: D1,
             iconSize: [24, 24]
-        });
+        })
         const markericon1 = L.icon({
             iconUrl: D2,
             iconSize: [30, 30]
-        });
+        })
         const markericon2 = L.icon({
             iconUrl: DC,
             iconSize: [24, 24]
-        });
+        })
         const markericon3 = L.icon({
             iconUrl: DC,
             iconSize: [30, 30]
-        });
-        const sameGps = []
-        const sameGpsKeys = []
-        const seekEquipment = (gps, datas, sameGps, sameGpsKeys) => {
-            datas.map((data, i) => {
-                if (data.gps === gps) {
-                    sameGps.push(data)
-                    sameGpsKeys.push(i)
-                }
-            })
-            console.log("sameGpsKeys", sameGpsKeys)
-            return sameGpsKeys
+        })
+        const icon = (device) => {
+            if (device.type === "device") return markericon
+            else if (device.type === "dc") return markericon2
+        }
+        const icons = (device) => {
+            if (device.type === "device") return markericon1
+            else if (device.type === "dc") return markericon3
         }
 
+        const sameGps = []
+        const sameGpsKeys = []
+        const differentGps = []
+        const seekEquipment = (device, datas, sameGps, differentGps) => {
+            sameGps = []
+            if (datas.lentgh !== 0) {
+                datas.map((data, i) => {
+                    if (data.gps === device.gps) {
+                        sameGps.push(data)
+                        sameGpsKeys.push(i)
+                    }
+                })
+                console.log("sameGpsKeys", sameGpsKeys)
+                console.log("sameGps", sameGps)
+
+            } else {
+                differentGps.push(device)
+                console.log("no datas found ")
+            }
+            return sameGps
+        }
 
         const listOfData = () => {
-
             if (this.props.data1 != undefined) {
                 let datas = this.props.data1.slice()
                 return (
                     <ul>
                         {this.props.data1.map((device, i) => {
-                                datas = datas.splice(0, 1)
-                                console.log("this is datas", datas)
-                                let sameGpsKeys = seekEquipment(device.gps, datas, [], [])
-                                if (sameGpsKeys.length === 0) {
-                                    if (device.type === "device") {
-                                        console.log(device)
-                                        return [(
-                                            <li key={i}>
-                                                <Marker position={device.gps} icon={markericon}>
-                                                    <MarkerPopup device={device}/>
-                                                </Marker>
-                                            </li>)]
-                                    } else if (device.type === "dc") {
-                                        return [(
-                                            <li key={i}>
-                                                <Marker position={device.gps} icon={markericon2}>
-                                                    <MarkerPopup device={device}/>
-                                                </Marker>
-                                            </li>)]
-                                    }
-                                } else {
-                                    if (device.type === "device") {
-                                        console.log(device)
-                                        return [(
-                                            <li key={i}>
-                                                <Marker position={device.gps} icon={markericon1}>
-                                                    <MultipleMarkerPopup sameGps={sameGps} device={device}/>
-                                                </Marker>
-                                            </li>)]
-                                    }
-                                    else if (device.type === "dc") {
-                                        return [(
-                                            <li key={i}>
-                                                <Marker position={device.gps} icon={markericon3}>
-                                                    <MultipleMarkerPopup  sameGps={sameGps} device={device}/>
-                                                </Marker>
-                                            </li>)]
-
-                                    }
-                                    sameGpsKeys.forEach(function (key) {
-                                        datas = datas.splice(key, 1)
-                                    })
-                                    //console.log("this is datas", datas)
-                                }
+                            datas = datas.splice(0, 1)
+                            console.log("this is datas", datas)
+                            let sameGps = seekEquipment(device, datas, sameGps, differentGps)
+                            if (sameGps.length !== 0) {
+                                return [(
+                                    <li key={i}>
+                                        <Marker position={device.gps} icon={icons(device)}>
+                                            <MultipleMarkerPopup sameGps={sameGps} device={device}/>
+                                        </Marker>
+                                    </li>)]
+                                sameGpsKeys.forEach(function (key) {
+                                    datas = datas.splice(key, 1)
+                                    console.log("this is datas", datas)
+                                })
                             }
-                        )}
+
+                        })
+                        }
+                        {differentGps.map((device, i) => {
+                            return [(
+                                <li key={i}>
+                                    <Marker position={device.gps} icon={icon(device)}>
+                                        <MarkerPopup device={device}/>
+                                    </Marker>
+                                </li>)]
+                        })
+                        }
                     </ul>
                 )
             }
-
         }
         {/* {
                                 this.props.devices.map((device, i) => {
@@ -168,7 +165,8 @@ class MyMap extends React.Component {
                                     </ul>)
                             }
 
-        */}
+             */
+        }
 
         {/*const filterByBoundsFactory = (bounds) =>
             (equipement) => {
@@ -181,7 +179,8 @@ class MyMap extends React.Component {
                     lat < bounds.northEast.lat
                 );
             }
-*/}
+            */
+        }
 
 
         return (
@@ -192,7 +191,7 @@ class MyMap extends React.Component {
                     attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
                     url="https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png"/>
                 {listOfData()}
-                <EquipmentModal modalOpen ={this.props.showModal} />
+                <EquipmentModal modalOpen={this.props.showModal}/>
 
 
                 <Control position="topright">
