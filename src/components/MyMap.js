@@ -31,6 +31,7 @@ class MyMap extends React.Component {
         lat: 51.505,
         lng: -0.09,
         zoom: 12
+
     }
 
     constructor(props) {
@@ -107,14 +108,16 @@ class MyMap extends React.Component {
 
             } else {
                 differentGps.push(device)
-                console.log("no datas found ")
+                console.log(differentGps)
             }
+
             return sameGps
         }
 
         const listOfData = () => {
             if (this.props.data1 != undefined) {
                 let datas = this.props.data1.slice()
+
                 return (
                     <ul>
                         {this.props.data1.map((device, i) => {
@@ -133,22 +136,34 @@ class MyMap extends React.Component {
                                     console.log("this is datas", datas)
                                 })
                             }
-
                         })
                         }
+
+
+                    </ul>
+                )
+            }
+        }
+        const listOfDifferentData = () => {
+            console.log(differentGps)
+            if (differentGps.length !== 0) {
+                return (
+                    <ul>
                         {differentGps.map((device, i) => {
-                            return [(
-                                <li key={i}>
-                                    <Marker position={device.gps} icon={icon(device)}>
-                                        <MarkerPopup device={device}/>
-                                    </Marker>
-                                </li>)]
-                        })
+                                return [(
+                                    <li key={i}>
+                                        <Marker position={device.gps} icon={icon(device)}>
+                                            <MarkerPopup device={device}/>
+                                        </Marker>
+                                    </li>)]
+                            }
+                        )
                         }
                     </ul>
                 )
             }
         }
+
         {/* {
                                 this.props.devices.map((device, i) => {
                                     console.log(device)
@@ -191,6 +206,7 @@ class MyMap extends React.Component {
                     attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
                     url="https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png"/>
                 {listOfData()}
+                {listOfDifferentData()}
                 <EquipmentModal modalOpen={this.props.showModal}/>
 
 
