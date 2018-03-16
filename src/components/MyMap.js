@@ -30,7 +30,10 @@ class MyMap extends React.Component {
     state = {
         lat: 51.505,
         lng: -0.09,
-        zoom: 12
+        zoom: 12,
+        sameGps: [],
+        sameGpsKeys: [],
+        differentGps: []
 
     }
 
@@ -63,6 +66,31 @@ class MyMap extends React.Component {
 
     }
 
+    seekEquipment(device, datas) {
+        let sameGps = []
+        let sameGpsKeys = []
+        //let differentGps = this.state.differentGps
+        if (datas.lentgh !== 0) {
+            datas.forEach((item, index) => {
+                if (item.gps === device.gps) {
+                    sameGps.push(item)
+                    sameGpsKeys.push(index)
+                }
+            })
+            this.setState({sameGPS: sameGps})
+            this.setState({sameGpsKeys: sameGpsKeys})
+            console.log("sameGpsKeys", sameGpsKeys)
+            console.log("sameGps", sameGps)
+
+        } else {
+            differentGps.push(device)
+            this.setState({differentGps: differentGps})
+            console.log(differentGps)
+        }
+
+        return sameGps
+    }
+
 
     render() {
         const position = [this.state.lat, this.state.lng]
@@ -91,28 +119,6 @@ class MyMap extends React.Component {
             else if (device.type === "dc") return markericon3
         }
 
-        const sameGps = []
-        const sameGpsKeys = []
-        const differentGps = []
-        const seekEquipment = (device, datas, sameGps, differentGps) => {
-            sameGps = []
-            if (datas.lentgh !== 0) {
-                datas.map((data, i) => {
-                    if (data.gps === device.gps) {
-                        sameGps.push(data)
-                        sameGpsKeys.push(i)
-                    }
-                })
-                console.log("sameGpsKeys", sameGpsKeys)
-                console.log("sameGps", sameGps)
-
-            } else {
-                differentGps.push(device)
-                console.log(differentGps)
-            }
-
-            return sameGps
-        }
 
         const listOfData = () => {
             if (this.props.data1 != undefined) {
@@ -123,15 +129,15 @@ class MyMap extends React.Component {
                         {this.props.data1.map((device, i) => {
                             datas = datas.splice(0, 1)
                             console.log("this is datas", datas)
-                            let sameGps = seekEquipment(device, datas, sameGps, differentGps)
+                            let sameGps = this.seekEquipment(device, datas)
                             if (sameGps.length !== 0) {
                                 return [(
                                     <li key={i}>
                                         <Marker position={device.gps} icon={icons(device)}>
-                                            <MultipleMarkerPopup sameGps={sameGps} device={device}/>
+                                            <MultipleMarkerPopup sameGps={this.state.sameGps} device={device}/>
                                         </Marker>
                                     </li>)]
-                                sameGpsKeys.forEach(function (key) {
+                                this.state.sameGpsKeys.forEach(function (key) {
                                     datas = datas.splice(key, 1)
                                     console.log("this is datas", datas)
                                 })
@@ -145,11 +151,11 @@ class MyMap extends React.Component {
             }
         }
         const listOfDifferentData = () => {
-            console.log(differentGps)
-            if (differentGps.length !== 0) {
+            console.log(this.state.differentGps)
+            if (this.state.differentGps.length !== 0) {
                 return (
                     <ul>
-                        {differentGps.map((device, i) => {
+                        {this.state.differentGps.map((device, i) => {
                                 return [(
                                     <li key={i}>
                                         <Marker position={device.gps} icon={icon(device)}>

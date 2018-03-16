@@ -3,11 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="ca324132-8db6-4caa-9f7b-c3a2cf4fd309" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" afterPath="$PROJECT_DIR$/package-lock.json" />
-      <change beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
-      <change beforePath="$PROJECT_DIR$/src/actions/boundsAction.js" afterPath="$PROJECT_DIR$/src/actions/boundsAction.js" />
-      <change beforePath="$PROJECT_DIR$/src/actions/initBoundsAction.js" afterPath="$PROJECT_DIR$/src/actions/initBoundsAction.js" />
-      <change beforePath="$PROJECT_DIR$/src/components/EquipmentModal.js" afterPath="$PROJECT_DIR$/src/components/EquipmentModal.js" />
       <change beforePath="$PROJECT_DIR$/src/components/MyMap.js" afterPath="$PROJECT_DIR$/src/components/MyMap.js" />
     </list>
     <ignored path="$PROJECT_DIR$/public/" />
@@ -26,13 +21,11 @@
       <file leaf-file-name="MyMap.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/MyMap.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="681">
-              <caret line="93" column="26" lean-forward="true" selection-start-line="93" selection-start-column="14" selection-end-line="93" selection-end-column="26" />
+            <state relative-caret-position="221">
+              <caret line="131" column="47" lean-forward="false" selection-start-line="131" selection-start-column="47" selection-end-line="131" selection-end-column="47" />
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
-                <marker date="1521133311483" expanded="true" signature="2851:2894" ph="{...}" />
-                <marker date="1521133311483" expanded="true" signature="3761:3762" ph="{...}" />
-                <marker date="1521133311483" expanded="true" signature="3841:4138" ph="&lt;li/&gt;" />
+                <marker date="1521194056063" expanded="true" signature="3957:4265" ph="&lt;li/&gt;" />
               </folding>
             </state>
           </provider>
@@ -41,15 +34,15 @@
       <file leaf-file-name="EquipmentModal.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/EquipmentModal.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="543">
+            <state relative-caret-position="336">
               <caret line="85" column="41" lean-forward="false" selection-start-line="85" selection-start-column="41" selection-end-line="85" selection-end-column="41" />
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
-                <marker date="1521132708536" expanded="true" signature="668:4015" ph="{...}" />
-                <marker date="1521132708536" expanded="true" signature="942:3984" ph="{...}" />
-                <marker date="1521132708536" expanded="true" signature="1779:1940" ph="/*...*/" />
-                <marker date="1521132708536" expanded="true" signature="2674:3062" ph="/*...*/" />
-                <marker date="1521132708536" expanded="true" signature="3977:3982" ph="{...}" />
+                <marker date="1521191362869" expanded="true" signature="668:4015" ph="{...}" />
+                <marker date="1521191362869" expanded="true" signature="942:3984" ph="{...}" />
+                <marker date="1521191362869" expanded="true" signature="1779:1940" ph="/*...*/" />
+                <marker date="1521191362869" expanded="true" signature="2674:3062" ph="/*...*/" />
+                <marker date="1521191362869" expanded="true" signature="3977:3982" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -272,12 +265,12 @@
       <workItem from="1520580652621" duration="22119000" />
       <workItem from="1520843239622" duration="24362000" />
       <workItem from="1520930142458" duration="16629000" />
-      <workItem from="1521015619248" duration="44044000" />
+      <workItem from="1521015619248" duration="47102000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="372994000" />
+    <option name="totallyTimeSpent" value="376052000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -685,28 +678,26 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/EquipmentModal.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="543">
+        <state relative-caret-position="336">
           <caret line="85" column="41" lean-forward="false" selection-start-line="85" selection-start-column="41" selection-end-line="85" selection-end-column="41" />
           <folding>
             <element signature="e#0#25#0" expanded="true" />
-            <marker date="1521132708536" expanded="true" signature="668:4015" ph="{...}" />
-            <marker date="1521132708536" expanded="true" signature="942:3984" ph="{...}" />
-            <marker date="1521132708536" expanded="true" signature="1779:1940" ph="/*...*/" />
-            <marker date="1521132708536" expanded="true" signature="2674:3062" ph="/*...*/" />
-            <marker date="1521132708536" expanded="true" signature="3977:3982" ph="{...}" />
+            <marker date="1521191362869" expanded="true" signature="668:4015" ph="{...}" />
+            <marker date="1521191362869" expanded="true" signature="942:3984" ph="{...}" />
+            <marker date="1521191362869" expanded="true" signature="1779:1940" ph="/*...*/" />
+            <marker date="1521191362869" expanded="true" signature="2674:3062" ph="/*...*/" />
+            <marker date="1521191362869" expanded="true" signature="3977:3982" ph="{...}" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/MyMap.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="681">
-          <caret line="93" column="26" lean-forward="true" selection-start-line="93" selection-start-column="14" selection-end-line="93" selection-end-column="26" />
+        <state relative-caret-position="221">
+          <caret line="131" column="47" lean-forward="false" selection-start-line="131" selection-start-column="47" selection-end-line="131" selection-end-column="47" />
           <folding>
             <element signature="e#0#25#0" expanded="true" />
-            <marker date="1521133311483" expanded="true" signature="2851:2894" ph="{...}" />
-            <marker date="1521133311483" expanded="true" signature="3761:3762" ph="{...}" />
-            <marker date="1521133311483" expanded="true" signature="3841:4138" ph="&lt;li/&gt;" />
+            <marker date="1521194056063" expanded="true" signature="3957:4265" ph="&lt;li/&gt;" />
           </folding>
         </state>
       </provider>
