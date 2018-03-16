@@ -10,18 +10,22 @@ import D2 from '../../public/icons/devices.png'
 import DC from '../../public/icons/dc.png'
 import MarkerPopup from "./MarkerPopup"
 import MultipleMarkerPopup from "./MultipleMarkerPopup"
+import EquipmentModal from './EquipmentModal'
 import MySidebar from "./MySideBar"
 import L from 'leaflet'
 import {boundsAction} from '../actions/boundsAction'
 import {initBoundsAction} from '../actions/initBoundsAction'
-import EquipmentModal from './EquipmentModal'
+
+//import {displayEquipmentsAction} from '../actions/displayEquipmentsAction'
+
 
 @connect((store) => {
     return {
         devices: store.mainReducer.devices,
         dcs: store.mainReducer.dcs,
         data1: store.mainReducer.data1,
-        showModal: store.mainReducer.showModal
+        showModal: store.mainReducer.showModal,
+        //sameGps: store.mainReducer.sameGps
     }
 })
 
@@ -31,15 +35,13 @@ class MyMap extends React.Component {
         lat: 51.505,
         lng: -0.09,
         zoom: 12,
-        sameGps: [],
-        sameGpsKeys: [],
-        differentGps: []
 
     }
 
     constructor(props) {
         super(props)
         this.updateBounds = this.updateBounds.bind(this)
+
 
     }
 
@@ -66,33 +68,33 @@ class MyMap extends React.Component {
 
     }
 
-    seekEquipment(device, datas) {
-        let sameGps = []
-        let sameGpsKeys = []
-        //let differentGps = this.state.differentGps
+    /* seekEquipment(device, datas) {
+        const sameGps = []
+        const sameGpsKeys = []
         if (datas.lentgh !== 0) {
+
             datas.forEach((item, index) => {
                 if (item.gps === device.gps) {
                     sameGps.push(item)
                     sameGpsKeys.push(index)
                 }
             })
-            this.setState({sameGPS: sameGps})
-            this.setState({sameGpsKeys: sameGpsKeys})
+            //this.setState({sameGpsKeys: sameGpsKeys})
             console.log("sameGpsKeys", sameGpsKeys)
             console.log("sameGps", sameGps)
 
-        } else {
+        }
+       if (sameGps.lentgh === 0) {
             differentGps.push(device)
-            this.setState({differentGps: differentGps})
             console.log(differentGps)
         }
-
-        return sameGps
-    }
+        displayEquipmentsAction(this.props.dispatch, sameGps)
+        return sameGpsKeys
+    }*/
 
 
     render() {
+
         const position = [this.state.lat, this.state.lng]
         const markericon = L.icon({
             iconUrl: D1,
@@ -120,28 +122,33 @@ class MyMap extends React.Component {
         }
 
 
+       const  sortingData = () => {
+    
+
         const listOfData = () => {
             if (this.props.data1 != undefined) {
-                let datas = this.props.data1.slice()
 
+               let dataMap = sortingData()
                 return (
                     <ul>
                         {this.props.data1.map((device, i) => {
-                            datas = datas.splice(0, 1)
-                            console.log("this is datas", datas)
-                            let sameGps = this.seekEquipment(device, datas)
-                            if (sameGps.length !== 0) {
+                            let datas = dataMap.get(device.gps)
+                            if (datas.length !== 1) {
                                 return [(
                                     <li key={i}>
                                         <Marker position={device.gps} icon={icons(device)}>
-                                            <MultipleMarkerPopup sameGps={this.state.sameGps} device={device}/>
+                                            <MultipleMarkerPopup datas={datas}/>
                                         </Marker>
                                     </li>)]
-                                this.state.sameGpsKeys.forEach(function (key) {
-                                    datas = datas.splice(key, 1)
-                                    console.log("this is datas", datas)
-                                })
+                            } else {
+                                return [(
+                                    <li key={i}>
+                                        <Marker position={device.gps} icon={icon(device)}>
+                                            <MarkerPopup device={device}/>
+                                        </Marker>
+                                    </li>)]
                             }
+
                         })
                         }
 
@@ -150,27 +157,26 @@ class MyMap extends React.Component {
                 )
             }
         }
-        const listOfDifferentData = () => {
-            console.log(this.state.differentGps)
-            if (this.state.differentGps.length !== 0) {
-                return (
-                    <ul>
-                        {this.state.differentGps.map((device, i) => {
-                                return [(
-                                    <li key={i}>
-                                        <Marker position={device.gps} icon={icon(device)}>
-                                            <MarkerPopup device={device}/>
-                                        </Marker>
-                                    </li>)]
-                            }
-                        )
-                        }
-                    </ul>
-                )
-            }
-        }
+
 
         {/* {
+               console.log(this.props.differentGps)
+                            if (this.props.differentGps.length !== 0) {
+                                return (
+                                    <ul>
+                                        {this.props.differentGps.map((device, i) => {
+
+                                            }
+                                        )
+                                        }
+                                    </ul>
+                                )
+                            }
+
+
+
+
+
                                 this.props.devices.map((device, i) => {
                                     console.log(device)
                                     if (device.on)
@@ -211,8 +217,8 @@ class MyMap extends React.Component {
                 <TileLayer
                     attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
                     url="https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png"/>
+                {sortingData()}
                 {listOfData()}
-                {listOfDifferentData()}
                 <EquipmentModal modalOpen={this.props.showModal}/>
 
 

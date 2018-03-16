@@ -40,6 +40,11 @@ const mainReducer = (state = data, action) => {
                 device:{$set: action.payload.device}
             })
         }
+        case "DISPLAY_EQUIPMENTS_ACTION" :{
+            return update(state, {
+                sameGps: {$set: action.payload}
+            })
+        }
 
         default:
             return state

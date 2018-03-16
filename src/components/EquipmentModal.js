@@ -83,7 +83,7 @@ class EquipmentModal extends React.Component {
                                         height={200}
                                         margin={{top: 10, bottom: 10, left: 100, right: 100}}
                                         sort={null}
-                                    />*/}
+                                    /> */}
                                 </Grid.Column>
                                 <Grid.Column width={8}>
 
