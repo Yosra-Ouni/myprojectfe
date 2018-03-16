@@ -122,44 +122,35 @@ class MyMap extends React.Component {
         }
 
 
-       const  sortingData = () => {
-    
-
         const listOfData = () => {
             if (this.props.data1 != undefined) {
-
-               let dataMap = sortingData()
-                return (
-                    <ul>
-                        {this.props.data1.map((device, i) => {
-                            let datas = dataMap.get(device.gps)
-                            if (datas.length !== 1) {
-                                return [(
-                                    <li key={i}>
-                                        <Marker position={device.gps} icon={icons(device)}>
-                                            <MultipleMarkerPopup datas={datas}/>
-                                        </Marker>
-                                    </li>)]
-                            } else {
-                                return [(
-                                    <li key={i}>
-                                        <Marker position={device.gps} icon={icon(device)}>
-                                            <MarkerPopup device={device}/>
-                                        </Marker>
-                                    </li>)]
-                            }
-
-                        })
-                        }
+                for (let i = 0; i < 10; i++) {
+                    datas = dataMap.get(i)
+                if (datas.length !== 1) {
+                        
+                    return [(
+                        <li key={i}>
+                            <Marker position={device.gps} icon={icons(device)}>
+                                <MultipleMarkerPopup datas={datas}/>
+                            </Marker>
+                        </li>)]
+                } else {
+                    return [(
+                        <li key={i}>
+                            <Marker position={device.gps} icon={icon(device)}>
+                                <MarkerPopup device={device}/>
+                            </Marker>
+                        </li>)]
+                }
 
 
-                    </ul>
-                )
             }
-        }
+
+}
+}
 
 
-        {/* {
+{/* {
                console.log(this.props.differentGps)
                             if (this.props.differentGps.length !== 0) {
                                 return (
@@ -193,9 +184,9 @@ class MyMap extends React.Component {
                             }
 
              */
-        }
+}
 
-        {/*const filterByBoundsFactory = (bounds) =>
+{/*const filterByBoundsFactory = (bounds) =>
             (equipement) => {
                 const {lng, lat} = equipement;
 
@@ -207,27 +198,27 @@ class MyMap extends React.Component {
                 );
             }
             */
-        }
+}
 
 
-        return (
-            <Map center={position} zoom={this.state.zoom} ref={(ref) => {
-                this.map = ref;
-            }} onLoad={this.getInitBounds} onMoveEnd={this.updateBounds}>
-                <TileLayer
-                    attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-                    url="https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png"/>
-                {sortingData()}
-                {listOfData()}
-                <EquipmentModal modalOpen={this.props.showModal}/>
+return (
+    <Map center={position} zoom={this.state.zoom} ref={(ref) => {
+        this.map = ref;
+    }} onLoad={this.getInitBounds} onMoveEnd={this.updateBounds}>
+        <TileLayer
+            attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            url="https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png"/>
+        {sortingData()}
+        {listOfData()}
+        <EquipmentModal modalOpen={this.props.showModal}/>
 
 
-                <Control position="topright">
-                    <MySidebar></MySidebar>
-                </Control>
-            </Map>
-        )
-    }
+        <Control position="topright">
+            <MySidebar></MySidebar>
+        </Control>
+    </Map>
+)
+}
 }
 
 export default MyMap
