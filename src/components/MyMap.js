@@ -23,9 +23,9 @@ import {initBoundsAction} from '../actions/initBoundsAction'
     return {
         devices: store.mainReducer.devices,
         dcs: store.mainReducer.dcs,
-        data1: store.mainReducer.data1,
+        // data1: store.mainReducer.data1,
         showModal: store.mainReducer.showModal,
-        //sameGps: store.mainReducer.sameGps
+        dataMap: store.mainReducer.dataMap
     }
 })
 
@@ -92,7 +92,6 @@ class MyMap extends React.Component {
         return sameGpsKeys
     }*/
 
-
     render() {
 
         const position = [this.state.lat, this.state.lng]
@@ -121,36 +120,41 @@ class MyMap extends React.Component {
             else if (device.type === "dc") return markericon3
         }
 
-
-        const listOfData = () => {
-            if (this.props.data1 != undefined) {
-                for (let i = 0; i < 10; i++) {
-                    datas = dataMap.get(i)
-                if (datas.length !== 1) {
-                        
-                    return [(
-                        <li key={i}>
-                            <Marker position={device.gps} icon={icons(device)}>
-                                <MultipleMarkerPopup datas={datas}/>
-                            </Marker>
-                        </li>)]
-                } else {
-                    return [(
-                        <li key={i}>
-                            <Marker position={device.gps} icon={icon(device)}>
-                                <MarkerPopup device={device}/>
-                            </Marker>
-                        </li>)]
-                }
-
-
+        const displayData = (item , key, dataMap) => {
+            console.log(this.props.dataMap)
+            let datas = item
+            console.log(item)
+            if (datas.length !== 1) {
+                return (
+                    <li key={key}>
+                        <Marker position={key} icon={icons(item)}>
+                            <MultipleMarkerPopup datas={datas}/>
+                        </Marker>
+                    </li>
+                )
+            } else {
+                //console.log(item[0])
+                let device = item[0]
+                return (
+                    <li key={key}>
+                        <Marker position={key} icon={icon(device)}>
+                            <MarkerPopup device={device}/>
+                        </Marker>
+                    </li>)
             }
 
-}
-}
+
+        }
+        const listOfData = () => {
+            console.log(this.props.dataMap)
+            if (this.props.dataMap != undefined) {
+                this.props.dataMap.forEach(displayData)
+
+            }
+        }
 
 
-{/* {
+        {/* {
                console.log(this.props.differentGps)
                             if (this.props.differentGps.length !== 0) {
                                 return (
@@ -183,10 +187,9 @@ class MyMap extends React.Component {
                                     </ul>)
                             }
 
-             */
-}
+             */}
 
-{/*const filterByBoundsFactory = (bounds) =>
+        {/*const filterByBoundsFactory = (bounds) =>
             (equipement) => {
                 const {lng, lat} = equipement;
 
@@ -198,27 +201,26 @@ class MyMap extends React.Component {
                 );
             }
             */
-}
+        }
 
 
-return (
-    <Map center={position} zoom={this.state.zoom} ref={(ref) => {
-        this.map = ref;
-    }} onLoad={this.getInitBounds} onMoveEnd={this.updateBounds}>
-        <TileLayer
-            attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-            url="https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png"/>
-        {sortingData()}
-        {listOfData()}
-        <EquipmentModal modalOpen={this.props.showModal}/>
+        return (
+            <Map center={position} zoom={this.state.zoom} ref={(ref) => {
+                this.map = ref;
+            }} onLoad={this.getInitBounds} onMoveEnd={this.updateBounds}>
+                <TileLayer
+                    attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                    url="https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png"/>
+                {listOfData()}
+                <EquipmentModal modalOpen={this.props.showModal}/>
 
 
-        <Control position="topright">
-            <MySidebar></MySidebar>
-        </Control>
-    </Map>
-)
-}
+                <Control position="topright">
+                    <MySidebar></MySidebar>
+                </Control>
+            </Map>
+        )
+    }
 }
 
 export default MyMap
