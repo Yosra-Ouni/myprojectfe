@@ -48,14 +48,14 @@ class MyMap extends React.Component {
     getInitBounds() {
         const data1 = []
         const bounds = this.map.leafletElement.getBounds()
-        initBoundsAction(this.props.dispatch, bounds, data1)
+        initBoundsAction(this.props.dispatch, bounds)
         console.log(bounds)
     }
 
     updateBounds() {
         const data1 = []
         const bounds = this.map.leafletElement.getBounds()
-        boundsAction(this.props.dispatch, bounds, data1)
+        boundsAction(this.props.dispatch, bounds)
         console.log(bounds)
     }
 
@@ -126,18 +126,18 @@ class MyMap extends React.Component {
             console.log(item)
             if (datas.length !== 1) {
                 return (
-                    <li key={key}>
+                    <li >
                         <Marker position={key} icon={icons(item)}>
                             <MultipleMarkerPopup datas={datas}/>
                         </Marker>
                     </li>
                 )
             } else {
-                //console.log(item[0])
                 let device = item[0]
+                console.log(device)
                 return (
-                    <li key={key}>
-                        <Marker position={key} icon={icon(device)}>
+                    <li >
+                        <Marker position={device.gps} icon={icon(item[0])}>
                             <MarkerPopup device={device}/>
                         </Marker>
                     </li>)
@@ -150,6 +150,8 @@ class MyMap extends React.Component {
             if (this.props.dataMap != undefined) {
                 this.props.dataMap.forEach(displayData)
 
+            }else{
+                console.log("dataMap is not defined")
             }
         }
 

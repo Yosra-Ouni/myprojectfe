@@ -5,7 +5,7 @@ import 'semantic-ui-css/semantic.min.css'
 import {Button, Icon, Header, Modal, popup, Grid, Image} from 'semantic-ui-react'
 import MarkerPopup from './MarkerPopup'
 import {showHideModalAction} from '../actions/showHideModalAction'
-import {PieChart} from 'react-charts-plus'
+import {PieChart , Pie } from 'react-charts-plus'
 //import '/node_modules/react-grid-layout/css/styles.css'
 //import '/node_modules/react-resizable/css/styles.css'
 //import
@@ -34,6 +34,14 @@ class EquipmentModal extends React.Component {
     handleClose = () => this.props.dispatch(showHideModalAction(this.props.dispatch, this.state.showModal))
 
     render() {
+        const data01 = [{name: 'Group A', value: 400}, {name: 'Group B', value: 300},
+            {name: 'Group C', value: 300}, {name: 'Group D', value: 200},
+            {name: 'Group E', value: 278}, {name: 'Group F', value: 189}]
+
+        const data02 = [{name: 'Group A', value: 2400}, {name: 'Group B', value: 4567},
+            {name: 'Group C', value: 1398}, {name: 'Group D', value: 9800},
+            {name: 'Group E', value: 3908}, {name: 'Group F', value: 4800}];
+
         const icon = () => {
             if (this.props.device.type === "device") return <Icon name={"selected radio"}/>
             else if (this.props.device.type === "dc") return <Icon name={"database"}/>
@@ -51,10 +59,7 @@ class EquipmentModal extends React.Component {
                 )
             }
         }
-        /* */var data = {
-             label: 'somethingA',
-             values: [{x: 'SomethingA', y: 10}, {x: 'SomethingB', y: 4}, {x: 'SomethingC', y: 3}]
-         };
+        /* */
 
         return (
             <Modal
@@ -77,13 +82,12 @@ class EquipmentModal extends React.Component {
                             <Grid.Row>
                                 <Grid.Column width={8}>
                                     {/*
-                                    <PieChart
-                                        data={data}
-                                        width={400}
-                                        height={200}
-                                        margin={{top: 10, bottom: 10, left: 100, right: 100}}
-                                        sort={null}
-                                    /> */}
+                                    <PieChart width={800} height={400}>
+                                        <Pie isAnimationActive={false} data={data01} cx={200} cy={200} outerRadius={80} fill="#8884d8" label/>
+                                        <Pie data={data02} cx={500} cy={200} innerRadius={40} outerRadius={80} fill="#82ca9d"/>
+                                        <Tooltip/>
+                                    </PieChart>
+                                    */}
                                 </Grid.Column>
                                 <Grid.Column width={8}>
 

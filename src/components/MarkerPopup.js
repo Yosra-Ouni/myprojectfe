@@ -11,14 +11,7 @@ import EquipmentModal from './EquipmentModal'
 
 
 @connect((store) => {
-    return {
-        devices: store.mainReducer.devices,
-        dcs: store.mainReducer.dcs,
-        rx: store.mainReducer.rx,
-        data1: store.mainReducer.data1,
-
-
-    }
+    return {}
 })
 class MarkerPopup extends React.Component {
     constructor(props) {
@@ -52,11 +45,10 @@ class MarkerPopup extends React.Component {
                     <Icon name={"marker"}/> ( {this.props.device.gps.lat} , {this.props.device.gps.lng} ) <br/>
                     </span>
                     <div>
-                        <Button size={'tiny'} primary
-                                onClick={() => this.props.dispatch(showHideModalAction(this.props.dispatch, {showModal}, this.props.device))}>
-                            Show Popup
-                        </Button>
-                        <Button size={'tiny'} secondary>Alarms</Button>
+                        <Button content={' Show Popup'} size={'tiny'} primary
+                                onClick={() => this.props.dispatch(showHideModalAction(this.props.dispatch, {showModal}, this.props.device))} />
+
+                        <Button size={'tiny'}  content={' Alarms'} secondary />
                     </div>
                 </div>
             </Popup>

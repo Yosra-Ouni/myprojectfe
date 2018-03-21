@@ -30,9 +30,9 @@ const mainReducer = (state = data, action) => {
         }
         case  "INIT_BOUNDS_ACTION_FULFILLED": {
             return update(state, {
-                bounds: {$set: action.payload.data.bounds},
-                data1: {$set: action.payload.data.devices}
-
+                bounds: {$set: action.bounds},
+                //data1: {$set: action.payload.data.devices}
+                dataMap :{$set: action.payload}
             })
         }
         case  "SHOW_HIDE_MODAL_ACTION": {
