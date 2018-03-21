@@ -21,10 +21,10 @@ class MultipleMarkerPopup extends React.Component {
             else if (device.type === "dc") return <Icon name={"database"}/>
         }
         const listOfSameGps = () => {
-            if (this.props.datas != undefined) {
+            if (this.props.items != undefined) {
                 return (
                     <ul>
-                        {this.props.sameGps.map((device, i) => {
+                        {this.props.items.map((device, i) => {
                             return [(
                                 <div key={i}>
                                     {icon(device)}

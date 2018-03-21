@@ -8,26 +8,42 @@ export const boundsAction = (dispatch, bounds) => {
                 const dataMap = new Map()
                 data.devices.map((equipment, index) => {
                     console.log(equipment)
-                    let key = equipment.gps
-                    if (!(dataMap.has(key))) {
+                    let gps = equipment.gps
+                     if (!(dataMap.has(gps))) {
+                          let values = []
+                          values.push(equipment)
+                          dataMap.set(gps, values)
+                          console.log(values)
+                      } else {
+                          let values = dataMap.get(gps)
+                          values.push(equipment)
+                          dataMap.set(gps, values)
+                      }
+                    /*  var keys = dataMap.keys()
+                while (keys.next().value != undefined) {
+                        key = keys.next().value
+                    if (key === gps) {
+                        let values = dataMap.get(key)
+                        values.push(equipment)
+                        dataMap.set(key, values)
+
+                    } else {
                         let values = []
                         values.push(equipment)
                         dataMap.set(key, values)
                         console.log(values)
-                    } else {
-                        let values = dataMap.get(key)
-                         values.push(equipment)
-                        dataMap.set(key, values)
+
                     }
 
+                }*/
                 })
                 return dataMap
             })
+
             .catch(function (error) {
                 console.log(error)
             })
 
+
     })
-
-
 }

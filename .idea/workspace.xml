@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/src/actions/boundsAction.js" line="18" mnemonic="2" />
-  </component>
   <component name="ChangeListManager">
     <list default="true" id="ca324132-8db6-4caa-9f7b-c3a2cf4fd309" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/src/actions/boundsAction.js" afterPath="$PROJECT_DIR$/src/actions/boundsAction.js" />
-      <change beforePath="$PROJECT_DIR$/src/actions/initBoundsAction.js" afterPath="$PROJECT_DIR$/src/actions/initBoundsAction.js" />
-      <change beforePath="$PROJECT_DIR$/src/components/EquipmentModal.js" afterPath="$PROJECT_DIR$/src/components/EquipmentModal.js" />
-      <change beforePath="$PROJECT_DIR$/src/components/MarkerPopup.js" afterPath="$PROJECT_DIR$/src/components/MarkerPopup.js" />
+      <change beforePath="$PROJECT_DIR$/src/components/MultipleMarkerPopup.js" afterPath="$PROJECT_DIR$/src/components/MultipleMarkerPopup.js" />
       <change beforePath="$PROJECT_DIR$/src/components/MyMap.js" afterPath="$PROJECT_DIR$/src/components/MyMap.js" />
-      <change beforePath="$PROJECT_DIR$/src/reducers/mainReducer.js" afterPath="$PROJECT_DIR$/src/reducers/mainReducer.js" />
     </list>
     <ignored path="$PROJECT_DIR$/public/" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -25,19 +20,18 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="MyMap.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MyMap.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/MyMap.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="679">
-              <caret line="153" column="51" lean-forward="false" selection-start-line="153" selection-start-column="51" selection-end-line="153" selection-end-column="51" />
+            <state relative-caret-position="635">
+              <caret line="146" column="9" lean-forward="true" selection-start-line="146" selection-start-column="9" selection-end-line="146" selection-end-column="9" />
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
-                <marker date="1521624248958" expanded="true" signature="1857:2538" ph="{...}" />
-                <marker date="1521624248958" expanded="true" signature="1949:2322" ph="{...}" />
-                <marker date="1521624248958" expanded="true" signature="1995:2158" ph="{...}" />
-                <marker date="1521624248958" expanded="true" signature="2042:2144" ph="{...}" />
-                <marker date="1521624248958" expanded="true" signature="2356:2443" ph="{...}" />
-                <marker date="1521624248958" expanded="true" signature="3883:4179" ph="{...}" />
+                <marker date="1521628351274" expanded="true" signature="1857:2538" ph="{...}" />
+                <marker date="1521628351274" expanded="true" signature="1949:2322" ph="{...}" />
+                <marker date="1521628351274" expanded="true" signature="1995:2158" ph="{...}" />
+                <marker date="1521628351274" expanded="true" signature="2042:2144" ph="{...}" />
+                <marker date="1521628351274" expanded="true" signature="2356:2443" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -56,7 +50,7 @@
       <file leaf-file-name="MarkerPopup.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/MarkerPopup.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="644">
+            <state relative-caret-position="437">
               <caret line="40" column="69" lean-forward="false" selection-start-line="40" selection-start-column="69" selection-end-line="40" selection-end-column="69" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
@@ -69,13 +63,13 @@
       <file leaf-file-name="MultipleMarkerPopup.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/MultipleMarkerPopup.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="23" column="32" lean-forward="false" selection-start-line="23" selection-start-column="32" selection-end-line="23" selection-end-column="32" />
+            <state relative-caret-position="207">
+              <caret line="21" column="9" lean-forward="true" selection-start-line="21" selection-start-column="9" selection-end-line="21" selection-end-column="9" />
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
-                <marker date="1521213977673" expanded="true" signature="888:1519" ph="&lt;ul/&gt;" />
-                <marker date="1521213977673" expanded="true" signature="990:1443" ph="[...]" />
-                <marker date="1521213977673" expanded="true" signature="1037:1407" ph="&lt;li/&gt;" />
+                <marker date="1521627098564" expanded="true" signature="888:1517" ph="&lt;ul/&gt;" />
+                <marker date="1521627098564" expanded="true" signature="988:1441" ph="[...]" />
+                <marker date="1521627098564" expanded="true" signature="1035:1405" ph="&lt;li/&gt;" />
               </folding>
             </state>
           </provider>
@@ -99,14 +93,17 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="boundsAction.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="boundsAction.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/actions/boundsAction.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="46">
-              <caret line="2" column="45" lean-forward="false" selection-start-line="2" selection-start-column="45" selection-end-line="2" selection-end-column="45" />
+            <state relative-caret-position="276">
+              <caret line="21" column="23" lean-forward="false" selection-start-line="21" selection-start-column="23" selection-end-line="21" selection-end-column="23" />
               <folding>
-                <marker date="1521623800091" expanded="true" signature="77:1025" ph="{...}" />
-                <marker date="1521623800091" expanded="true" signature="99:1024" ph="{&quot;type&quot;: 'BOUNDS_ACTION'...}" />
+                <marker date="1521639017693" expanded="true" signature="77:1636" ph="{...}" />
+                <marker date="1521639017693" expanded="true" signature="77:1640" ph="{...}" />
+                <marker date="1521639017693" expanded="true" signature="99:1630" ph="{&quot;type&quot;: 'BOUNDS_ACTION'...}" />
+                <marker date="1521639017693" expanded="true" signature="99:1636" ph="{&quot;type&quot;: 'BOUNDS_ACTION'...}" />
+                <marker date="1521639017693" expanded="true" signature="341:502" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -209,19 +206,25 @@
         <option value="$PROJECT_DIR$/src/actions/showHideModalAction.js" />
         <option value="$PROJECT_DIR$/src/actions/DiplayEquipmentsAction.js" />
         <option value="$PROJECT_DIR$/src/actions/displayEquipmentsAction.js" />
-        <option value="$PROJECT_DIR$/src/components/MultipleMarkerPopup.js" />
         <option value="$PROJECT_DIR$/src/reducers/mainReducer.js" />
         <option value="$PROJECT_DIR$/src/components/EquipmentModal.js" />
         <option value="$PROJECT_DIR$/src/actions/initBoundsAction.js" />
-        <option value="$PROJECT_DIR$/src/actions/boundsAction.js" />
         <option value="$PROJECT_DIR$/src/components/MarkerPopup.js" />
+        <option value="$PROJECT_DIR$/src/components/MultipleMarkerPopup.js" />
         <option value="$PROJECT_DIR$/src/components/MyMap.js" />
+        <option value="$PROJECT_DIR$/src/actions/boundsAction.js" />
       </list>
     </option>
   </component>
   <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
   <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER">
     <package-json value="$PROJECT_DIR$/package.json" />
+  </component>
+  <component name="JsFlowSettings">
+    <service-enabled>true</service-enabled>
+    <exe-path />
+    <other-services-enabled>true</other-services-enabled>
+    <auto-save>true</auto-save>
   </component>
   <component name="JsGulpfileManager">
     <detection-done>true</detection-done>
@@ -356,12 +359,12 @@
       <workItem from="1520580652621" duration="22119000" />
       <workItem from="1520843239622" duration="24362000" />
       <workItem from="1520930142458" duration="16629000" />
-      <workItem from="1521015619248" duration="91082000" />
+      <workItem from="1521015619248" duration="99084000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="420032000" />
+    <option name="totallyTimeSpent" value="428034000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -409,7 +412,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/public/icons/transparentCanvas.png" />
     <entry file="file://$PROJECT_DIR$/public/icons/marker1.png">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -592,13 +594,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/react-leaflet/es/Popup.js.flow">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1058">
-          <caret line="23" column="21" lean-forward="false" selection-start-line="23" selection-start-column="21" selection-end-line="23" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="345">
@@ -712,6 +707,33 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/react-leaflet/es/Marker.js.flow">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-239">
+          <caret line="30" column="30" lean-forward="true" selection-start-line="30" selection-start-column="30" selection-end-line="30" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/react-leaflet/es/Popup.js.flow">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="250">
+          <caret line="23" column="21" lean-forward="false" selection-start-line="23" selection-start-column="21" selection-end-line="23" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/MarkerPopup.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="437">
+          <caret line="40" column="69" lean-forward="false" selection-start-line="40" selection-start-column="69" selection-end-line="40" selection-end-column="69" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+            <marker date="1521624063586" expanded="true" signature="1955:2154" ph="&lt;Button/&gt;" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/reducers/MarkerReducer.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="299">
@@ -720,15 +742,36 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/reducers/mainReducer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="736">
+          <caret line="32" column="38" lean-forward="false" selection-start-line="32" selection-start-column="38" selection-end-line="32" selection-end-column="38" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/actions/initBoundsAction.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-23">
+          <caret line="2" column="49" lean-forward="false" selection-start-line="2" selection-start-column="49" selection-end-line="2" selection-end-column="49" />
+          <folding>
+            <marker date="1521623784557" expanded="true" signature="81:1028" ph="{...}" />
+            <marker date="1521623784557" expanded="true" signature="103:1022" ph="{&quot;type&quot;: 'INIT_BOUNDS_ACTION'...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/MultipleMarkerPopup.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" column="32" lean-forward="false" selection-start-line="23" selection-start-column="32" selection-end-line="23" selection-end-column="32" />
+        <state relative-caret-position="207">
+          <caret line="21" column="9" lean-forward="true" selection-start-line="21" selection-start-column="9" selection-end-line="21" selection-end-column="9" />
           <folding>
             <element signature="e#0#25#0" expanded="true" />
-            <marker date="1521213977673" expanded="true" signature="888:1519" ph="&lt;ul/&gt;" />
-            <marker date="1521213977673" expanded="true" signature="990:1443" ph="[...]" />
-            <marker date="1521213977673" expanded="true" signature="1037:1407" ph="&lt;li/&gt;" />
+            <marker date="1521627098564" expanded="true" signature="888:1517" ph="&lt;ul/&gt;" />
+            <marker date="1521627098564" expanded="true" signature="988:1441" ph="[...]" />
+            <marker date="1521627098564" expanded="true" signature="1035:1405" ph="&lt;li/&gt;" />
           </folding>
         </state>
       </provider>
@@ -749,61 +792,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/MarkerPopup.js">
+    <entry file="file://$PROJECT_DIR$/src/components/MyMap.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="644">
-          <caret line="40" column="69" lean-forward="false" selection-start-line="40" selection-start-column="69" selection-end-line="40" selection-end-column="69" />
+        <state relative-caret-position="635">
+          <caret line="146" column="9" lean-forward="true" selection-start-line="146" selection-start-column="9" selection-end-line="146" selection-end-column="9" />
           <folding>
-            <element signature="e#0#26#0" expanded="true" />
-            <marker date="1521624063586" expanded="true" signature="1955:2154" ph="&lt;Button/&gt;" />
+            <element signature="e#0#25#0" expanded="true" />
+            <marker date="1521628351274" expanded="true" signature="1857:2538" ph="{...}" />
+            <marker date="1521628351274" expanded="true" signature="1949:2322" ph="{...}" />
+            <marker date="1521628351274" expanded="true" signature="1995:2158" ph="{...}" />
+            <marker date="1521628351274" expanded="true" signature="2042:2144" ph="{...}" />
+            <marker date="1521628351274" expanded="true" signature="2356:2443" ph="{...}" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/actions/boundsAction.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="46">
-          <caret line="2" column="45" lean-forward="false" selection-start-line="2" selection-start-column="45" selection-end-line="2" selection-end-column="45" />
+        <state relative-caret-position="276">
+          <caret line="21" column="23" lean-forward="false" selection-start-line="21" selection-start-column="23" selection-end-line="21" selection-end-column="23" />
           <folding>
-            <marker date="1521623800091" expanded="true" signature="77:1025" ph="{...}" />
-            <marker date="1521623800091" expanded="true" signature="99:1024" ph="{&quot;type&quot;: 'BOUNDS_ACTION'...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/actions/initBoundsAction.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-23">
-          <caret line="2" column="49" lean-forward="false" selection-start-line="2" selection-start-column="49" selection-end-line="2" selection-end-column="49" />
-          <folding>
-            <marker date="1521623784557" expanded="true" signature="81:1028" ph="{...}" />
-            <marker date="1521623784557" expanded="true" signature="103:1022" ph="{&quot;type&quot;: 'INIT_BOUNDS_ACTION'...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/reducers/mainReducer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="736">
-          <caret line="32" column="38" lean-forward="false" selection-start-line="32" selection-start-column="38" selection-end-line="32" selection-end-column="38" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/MyMap.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="679">
-          <caret line="153" column="51" lean-forward="false" selection-start-line="153" selection-start-column="51" selection-end-line="153" selection-end-column="51" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-            <marker date="1521624248958" expanded="true" signature="1857:2538" ph="{...}" />
-            <marker date="1521624248958" expanded="true" signature="1949:2322" ph="{...}" />
-            <marker date="1521624248958" expanded="true" signature="1995:2158" ph="{...}" />
-            <marker date="1521624248958" expanded="true" signature="2042:2144" ph="{...}" />
-            <marker date="1521624248958" expanded="true" signature="2356:2443" ph="{...}" />
-            <marker date="1521624248958" expanded="true" signature="3883:4179" ph="{...}" />
+            <marker date="1521639017693" expanded="true" signature="77:1636" ph="{...}" />
+            <marker date="1521639017693" expanded="true" signature="77:1640" ph="{...}" />
+            <marker date="1521639017693" expanded="true" signature="99:1630" ph="{&quot;type&quot;: 'BOUNDS_ACTION'...}" />
+            <marker date="1521639017693" expanded="true" signature="99:1636" ph="{&quot;type&quot;: 'BOUNDS_ACTION'...}" />
+            <marker date="1521639017693" expanded="true" signature="341:502" ph="{...}" />
           </folding>
         </state>
       </provider>

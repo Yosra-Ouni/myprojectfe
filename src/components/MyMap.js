@@ -120,27 +120,27 @@ class MyMap extends React.Component {
             else if (device.type === "dc") return markericon3
         }
 
-        const displayData = (item , key, dataMap) => {
+        const displayData = (items, key, dataMap) => {
             console.log(this.props.dataMap)
-            let datas = item
-            console.log(item)
-            if (datas.length !== 1) {
-                return (
-                    <li >
-                        <Marker position={key} icon={icons(item)}>
-                            <MultipleMarkerPopup datas={datas}/>
+            console.log(items)
+            if (items.length === 1) {
+                let device = items[0]
+                console.log(device)
+                let i = 0
+                return [(
+
+                    <Marker position={device.gps} icon={icon(items[0])}>
+                        <MarkerPopup device={device}/>
+                    </Marker>
+                )]
+            } else {
+                return [(
+                    <li>
+                        <Marker position={key} icon={icons(item[0])}>
+                            <MultipleMarkerPopup items={items}/>
                         </Marker>
                     </li>
-                )
-            } else {
-                let device = item[0]
-                console.log(device)
-                return (
-                    <li >
-                        <Marker position={device.gps} icon={icon(item[0])}>
-                            <MarkerPopup device={device}/>
-                        </Marker>
-                    </li>)
+                )]
             }
 
 
@@ -148,9 +148,10 @@ class MyMap extends React.Component {
         const listOfData = () => {
             console.log(this.props.dataMap)
             if (this.props.dataMap != undefined) {
-                this.props.dataMap.forEach(displayData)
-
-            }else{
+                return (
+                    this.props.dataMap.forEach(displayData)
+                )
+            } else {
                 console.log("dataMap is not defined")
             }
         }
@@ -189,7 +190,8 @@ class MyMap extends React.Component {
                                     </ul>)
                             }
 
-             */}
+             */
+        }
 
         {/*const filterByBoundsFactory = (bounds) =>
             (equipement) => {
