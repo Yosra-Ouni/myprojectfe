@@ -5,7 +5,7 @@ import 'semantic-ui-css/semantic.min.css'
 import {Button, Icon, Header, Modal, popup, Grid, Image} from 'semantic-ui-react'
 import MarkerPopup from './MarkerPopup'
 import {showHideModalAction} from '../actions/showHideModalAction'
-import {PieChart , Pie } from 'react-charts-plus'
+import {PieChart , Pie ,Legend, Tooltip  } from 'Recharts'
 //import '/node_modules/react-grid-layout/css/styles.css'
 //import '/node_modules/react-resizable/css/styles.css'
 //import
@@ -74,20 +74,17 @@ class EquipmentModal extends React.Component {
                     <div>
                         <Grid>
                             <Grid.Row>
-                                <h3>
-                                    {showDeviceDetails()}
-                                </h3>
+                                <h3>{showDeviceDetails()}</h3>
                             </Grid.Row>
 
                             <Grid.Row>
                                 <Grid.Column width={8}>
-                                    {/*
                                     <PieChart width={800} height={400}>
                                         <Pie isAnimationActive={false} data={data01} cx={200} cy={200} outerRadius={80} fill="#8884d8" label/>
                                         <Pie data={data02} cx={500} cy={200} innerRadius={40} outerRadius={80} fill="#82ca9d"/>
                                         <Tooltip/>
                                     </PieChart>
-                                    */}
+                                    {/*  */}
                                 </Grid.Column>
                                 <Grid.Column width={8}>
 

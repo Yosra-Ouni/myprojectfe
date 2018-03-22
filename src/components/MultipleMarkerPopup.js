@@ -6,6 +6,7 @@ import {Button, Icon, popup} from 'semantic-ui-react'
 import Control from 'react-leaflet-control'
 import {Marker, Popup} from 'react-leaflet'
 import {showHideModalAction} from "../actions/showHideModalAction"
+
 @connect((store) => {
     return {
         showModal: store.mainReducer.showModal,
@@ -24,14 +25,20 @@ class MultipleMarkerPopup extends React.Component {
             if (this.props.items != undefined) {
                 return (
                     <ul>
-                        {this.props.items.map((device, i) => {
+                        {this.props.items.forEach((device, i) => {
+                            console.log(device)
                             return [(
-                                <div key={i}>
-                                    {icon(device)}
-                                    {device.type}
-                                    {device.id}
-                                    <Button content='Show Popup' primary size={'mini'} onClick={() => this.props.dispatch(showHideModalAction(this.props.dispatch, {showModal}, device))}/>
-                                </div>
+                                <li>
+                                    <Marker position={device.gps} icon={icons(items[0])}>
+                                        <div key={i}>
+                                            {icon(device)}
+                                            {device.type}
+                                            {device.id}
+                                            <Button content='Show Popup' primary size={'mini'}
+                                                    onClick={() => this.props.dispatch(showHideModalAction(this.props.dispatch, {showModal}, device))}/>
+                                        </div>
+                                    </Marker>
+                                </li>
                             )]
                         })
 

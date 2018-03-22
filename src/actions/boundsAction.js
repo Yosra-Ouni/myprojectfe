@@ -8,16 +8,16 @@ export const boundsAction = (dispatch, bounds) => {
                 const dataMap = new Map()
                 data.devices.map((equipment, index) => {
                     console.log(equipment)
-                    let gps = equipment.gps
-                     if (!(dataMap.has(gps))) {
+                    let key = equipment.gps
+                     if (!(dataMap.has(`${key.lat},${key.lng}`))) {
                           let values = []
                           values.push(equipment)
-                          dataMap.set(gps, values)
+                          dataMap.set(`${key.lat},${key.lng}`, values)
                           console.log(values)
                       } else {
-                          let values = dataMap.get(gps)
+                          let values = dataMap.get(`${key.lat},${key.lng}`)
                           values.push(equipment)
-                          dataMap.set(gps, values)
+                          dataMap.set(`${key.lat},${key.lng}`, values)
                       }
                     /*  var keys = dataMap.keys()
                 while (keys.next().value != undefined) {

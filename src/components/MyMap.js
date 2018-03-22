@@ -23,7 +23,7 @@ import {initBoundsAction} from '../actions/initBoundsAction'
     return {
         devices: store.mainReducer.devices,
         dcs: store.mainReducer.dcs,
-        // data1: store.mainReducer.data1,
+        data1: store.mainReducer.data1,
         showModal: store.mainReducer.showModal,
         dataMap: store.mainReducer.dataMap
     }
@@ -48,7 +48,7 @@ class MyMap extends React.Component {
     getInitBounds() {
         const data1 = []
         const bounds = this.map.leafletElement.getBounds()
-        initBoundsAction(this.props.dispatch, bounds)
+        initBoundsAction(this.props.dispatch, bounds, data1)
         console.log(bounds)
     }
 
@@ -120,42 +120,41 @@ class MyMap extends React.Component {
             else if (device.type === "dc") return markericon3
         }
 
-        const displayData = (items, key, dataMap) => {
+        const displayData = (items, key, mapObj) => {
             console.log(this.props.dataMap)
             console.log(items)
             if (items.length === 1) {
-                let device = items[0]
+                const device = items[0]
                 console.log(device)
-                let i = 0
-                return [(
-
-                    <Marker position={device.gps} icon={icon(items[0])}>
-                        <MarkerPopup device={device}/>
-                    </Marker>
-                )]
-            } else {
-                return [(
+                // let i = 0
+                return (
                     <li>
-                        <Marker position={key} icon={icons(item[0])}>
-                            <MultipleMarkerPopup items={items}/>
+                        <Marker position={device.gps} icon={icon(device)}>
+                            <MarkerPopup device={device}/>
                         </Marker>
                     </li>
+                )
+            } else {
+                return [(
+                    <MultipleMarkerPopup items={items}/>
                 )]
             }
 
 
         }
+
         const listOfData = () => {
             console.log(this.props.dataMap)
             if (this.props.dataMap != undefined) {
-                return (
-                    this.props.dataMap.forEach(displayData)
-                )
+
+                this.props.dataMap.forEach(displayData)
+
             } else {
                 console.log("dataMap is not defined")
             }
         }
-
+        {/**/
+        }
 
         {/* {
                console.log(this.props.differentGps)
@@ -204,9 +203,29 @@ class MyMap extends React.Component {
                     lat < bounds.northEast.lat
                 );
             }
-            */
-        }
 
+
+        const listOfData = () => {
+            if (this.props.data1 != undefined) {
+                return (
+                    <ul>
+                        {this.props.data1.map((device, i) => {
+                            return [(
+                                <li key={i}>
+                                    <Marker position={device.gps} icon={icon(device)}>
+                                        <MarkerPopup device={device}/>
+                                    </Marker>
+                                </li>)]
+
+                            })
+
+                        }
+                    </ul>
+                )
+            }
+        }
+ */
+        }
 
         return (
             <Map center={position} zoom={this.state.zoom} ref={(ref) => {
