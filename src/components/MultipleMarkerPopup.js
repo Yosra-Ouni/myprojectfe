@@ -21,15 +21,15 @@ class MultipleMarkerPopup extends React.Component {
             if (device.type === "device") return <Icon size={"large"} name={"selected radio"}/>
             else if (device.type === "dc") return <Icon name={"database"}/>
         }
-        const listOfSameGps = () => {
+        const listOfItems = () => {
+            console.log()
             if (this.props.items != undefined) {
                 return (
                     <ul>
-                        {this.props.items.forEach((device, i) => {
+                        {this.props.items.forEach((device) => {
                             console.log(device)
                             return [(
-                                <li>
-                                    <Marker position={device.gps} icon={icons(items[0])}>
+
                                         <div key={i}>
                                             {icon(device)}
                                             {device.type}
@@ -37,8 +37,7 @@ class MultipleMarkerPopup extends React.Component {
                                             <Button content='Show Popup' primary size={'mini'}
                                                     onClick={() => this.props.dispatch(showHideModalAction(this.props.dispatch, {showModal}, device))}/>
                                         </div>
-                                    </Marker>
-                                </li>
+
                             )]
                         })
 
@@ -52,12 +51,7 @@ class MultipleMarkerPopup extends React.Component {
         return (
             <Popup>
                 <div>
-
-
-                    {/*<GridList cols={4} >*/}
-                    {listOfSameGps()}
-                    {/*</GridList>*/}
-
+                    {listOfItems()}
                 </div>
             </Popup>
         )

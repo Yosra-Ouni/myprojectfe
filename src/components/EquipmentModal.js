@@ -79,12 +79,12 @@ class EquipmentModal extends React.Component {
 
                             <Grid.Row>
                                 <Grid.Column width={8}>
-                                    <PieChart width={800} height={400}>
+                                    {/* <PieChart width={800} height={400}>
                                         <Pie isAnimationActive={false} data={data01} cx={200} cy={200} outerRadius={80} fill="#8884d8" label/>
                                         <Pie data={data02} cx={500} cy={200} innerRadius={40} outerRadius={80} fill="#82ca9d"/>
                                         <Tooltip/>
                                     </PieChart>
-                                    {/*  */}
+                                     */}
                                 </Grid.Column>
                                 <Grid.Column width={8}>
 

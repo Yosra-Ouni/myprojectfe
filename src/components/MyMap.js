@@ -5,13 +5,11 @@ import 'semantic-ui-css/semantic.min.css'
 import {Input, Button, Icon, Sidebar} from 'semantic-ui-react'
 import Control from 'react-leaflet-control'
 import {Map, TileLayer, Marker, Popup, MapControl,} from 'react-leaflet'
-import D1 from '../../public/icons/device.png'
-import D2 from '../../public/icons/devices.png'
-import DC from '../../public/icons/dc.png'
 import MarkerPopup from "./MarkerPopup"
 import MultipleMarkerPopup from "./MultipleMarkerPopup"
 import EquipmentModal from './EquipmentModal'
 import MySidebar from "./MySideBar"
+import MarkerLayer from './MarkerLayer'
 import L from 'leaflet'
 import {boundsAction} from '../actions/boundsAction'
 import {initBoundsAction} from '../actions/initBoundsAction'
@@ -95,66 +93,7 @@ class MyMap extends React.Component {
     render() {
 
         const position = [this.state.lat, this.state.lng]
-        const markericon = L.icon({
-            iconUrl: D1,
-            iconSize: [24, 24]
-        })
-        const markericon1 = L.icon({
-            iconUrl: D2,
-            iconSize: [30, 30]
-        })
-        const markericon2 = L.icon({
-            iconUrl: DC,
-            iconSize: [24, 24]
-        })
-        const markericon3 = L.icon({
-            iconUrl: DC,
-            iconSize: [30, 30]
-        })
-        const icon = (device) => {
-            if (device.type === "device") return markericon
-            else if (device.type === "dc") return markericon2
-        }
-        const icons = (device) => {
-            if (device.type === "device") return markericon1
-            else if (device.type === "dc") return markericon3
-        }
 
-        const displayData = (items, key, mapObj) => {
-            console.log(this.props.dataMap)
-            console.log(items)
-            if (items.length === 1) {
-                const device = items[0]
-                console.log(device)
-                // let i = 0
-                return (
-                    <li>
-                        <Marker position={device.gps} icon={icon(device)}>
-                            <MarkerPopup device={device}/>
-                        </Marker>
-                    </li>
-                )
-            } else {
-                return [(
-                    <MultipleMarkerPopup items={items}/>
-                )]
-            }
-
-
-        }
-
-        const listOfData = () => {
-            console.log(this.props.dataMap)
-            if (this.props.dataMap != undefined) {
-
-                this.props.dataMap.forEach(displayData)
-
-            } else {
-                console.log("dataMap is not defined")
-            }
-        }
-        {/**/
-        }
 
         {/* {
                console.log(this.props.differentGps)
@@ -226,6 +165,7 @@ class MyMap extends React.Component {
         }
  */
         }
+        //const MyCmp = (x,y) => null
 
         return (
             <Map center={position} zoom={this.state.zoom} ref={(ref) => {
@@ -234,7 +174,9 @@ class MyMap extends React.Component {
                 <TileLayer
                     attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
                     url="https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png"/>
-                {listOfData()}
+
+                {/*  <MyCmp x ={}/> */}
+                <MarkerLayer dataMap={this.props.dataMap}/>
                 <EquipmentModal modalOpen={this.props.showModal}/>
 
 
