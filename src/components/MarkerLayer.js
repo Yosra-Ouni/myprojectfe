@@ -47,7 +47,6 @@ class MarkerLayer extends React.Component {
                             console.log(items)
                             if (items.length === 1) {
                                 let device = items[0]
-                                //console.log( device,i )
                                 return [(
 
                                     <Marker position={device.gps} icon={icon(device)}>
@@ -60,7 +59,7 @@ class MarkerLayer extends React.Component {
                                 return [(
 
                                     <Marker position={device.gps} icon={icons(device)}>
-                                        {/* <MultipleMarkerPopup items={items}/>*/}
+                                        {/* <MultipleMarkerPopup items={items}/> */}
                                     </Marker>
 
                                 )]

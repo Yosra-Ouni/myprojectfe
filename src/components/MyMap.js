@@ -13,6 +13,9 @@ import MarkerLayer from './MarkerLayer'
 import L from 'leaflet'
 import {boundsAction} from '../actions/boundsAction'
 import {initBoundsAction} from '../actions/initBoundsAction'
+import D1 from '../../public/icons/device.png'
+import D2 from '../../public/icons/devices.png'
+import DC from '../../public/icons/dc.png'
 
 //import {displayEquipmentsAction} from '../actions/displayEquipmentsAction'
 
@@ -66,84 +69,23 @@ class MyMap extends React.Component {
 
     }
 
-    /* seekEquipment(device, datas) {
-        const sameGps = []
-        const sameGpsKeys = []
-        if (datas.lentgh !== 0) {
-
-            datas.forEach((item, index) => {
-                if (item.gps === device.gps) {
-                    sameGps.push(item)
-                    sameGpsKeys.push(index)
-                }
-            })
-            //this.setState({sameGpsKeys: sameGpsKeys})
-            console.log("sameGpsKeys", sameGpsKeys)
-            console.log("sameGps", sameGps)
-
-        }
-       if (sameGps.lentgh === 0) {
-            differentGps.push(device)
-            console.log(differentGps)
-        }
-        displayEquipmentsAction(this.props.dispatch, sameGps)
-        return sameGpsKeys
-    }*/
-
     render() {
-
-        const position = [this.state.lat, this.state.lng]
-
-
-        {/* {
-               console.log(this.props.differentGps)
-                            if (this.props.differentGps.length !== 0) {
-                                return (
-                                    <ul>
-                                        {this.props.differentGps.map((device, i) => {
-
-                                            }
-                                        )
-                                        }
-                                    </ul>
-                                )
-                            }
-
-
-
-
-
-                                this.props.devices.map((device, i) => {
-                                    console.log(device)
-                                    if (device.on)
-                                        return [(
-                                            <li key={i}>
-                                                <Marker position={device.gps} icon={marker1Icon}>
-                                                    <MarkerPopup device={device}/>
-                                                </Marker>
-
-                                            </li>)]
-                                })
-                            }
-                                    </ul>)
-                            }
-
-             */
+        const markericon = L.icon({
+            iconUrl: D1,
+            iconSize: [24, 24]
+        })
+        const markericon2 = L.icon({
+            iconUrl: DC,
+            iconSize: [24, 24]
+        })
+        const icon = (device) => {
+            if (device.type === "device") return markericon
+            else if (device.type === "dc") return markericon2
         }
-
-        {/*const filterByBoundsFactory = (bounds) =>
-            (equipement) => {
-                const {lng, lat} = equipement;
-
-                return (
-                    lng > bounds.southWest.lng &&
-                    lng < bounds.northEast.lng &&
-                    lat > bounds.southWest.lat &&
-                    lat < bounds.northEast.lat
-                );
-            }
-
-
+        const position = [this.state.lat, this.state.lng]
+        const min = 1
+        const max = 10
+        const random = Math.floor(min + Math.random() * (max - min))
         const listOfData = () => {
             if (this.props.data1 != undefined) {
                 return (
@@ -156,15 +98,13 @@ class MyMap extends React.Component {
                                     </Marker>
                                 </li>)]
 
-                            })
-
+                        })
                         }
                     </ul>
                 )
             }
         }
- */
-        }
+
         //const MyCmp = (x,y) => null
 
         return (
@@ -175,11 +115,11 @@ class MyMap extends React.Component {
                     attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
                     url="https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png"/>
 
-                {/*  <MyCmp x ={}/> */}
-                <MarkerLayer dataMap={this.props.dataMap}/>
-                <EquipmentModal modalOpen={this.props.showModal}/>
+                {/*  <MyCmp x ={}/>
+                <MarkerLayer dataMap={this.props.dataMap}/>*/}
+                <EquipmentModal modalOpen={this.props.showModal} random={random}/>
 
-
+                {listOfData()}
                 <Control position="topright">
                     <MySidebar></MySidebar>
                 </Control>
