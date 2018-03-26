@@ -13,6 +13,7 @@ class SockJsClient extends React.Component {
         onDisconnect: () => {
             console.log("byeeeeee")
         },
+
         getRetryInterval: (count) => {
             return 1000 * count;
         },

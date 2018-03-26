@@ -2,14 +2,15 @@ import React from 'react'
 import {connect} from 'react-redux'
 import store from '../store'
 import 'semantic-ui-css/semantic.min.css'
-import {Input, Button, Icon, Sidebar} from 'semantic-ui-react'
+import {Input, Button, Icon, Sidebar, Popup} from 'semantic-ui-react'
 import Control from 'react-leaflet-control'
-import {Map, TileLayer, Marker, Popup, MapControl,} from 'react-leaflet'
+import {Map, TileLayer, Marker, MapControl,} from 'react-leaflet'
 import MarkerPopup from "./MarkerPopup"
 import MultipleMarkerPopup from "./MultipleMarkerPopup"
 import EquipmentModal from './EquipmentModal'
 import MySidebar from "./MySideBar"
 import MarkerLayer from './MarkerLayer'
+import NotificationPopup from './NotificationPopup'
 import L from 'leaflet'
 import {boundsAction} from '../actions/boundsAction'
 import {initBoundsAction} from '../actions/initBoundsAction'
@@ -26,7 +27,9 @@ import DC from '../../public/icons/dc.png'
         dcs: store.mainReducer.dcs,
         data1: store.mainReducer.data1,
         showModal: store.mainReducer.showModal,
-        dataMap: store.mainReducer.dataMap
+        dataMap: store.mainReducer.dataMap,
+        showNotif: store.mainReducer.showNotif,
+        msg : store.mainReducer.msg
     }
 })
 
@@ -70,6 +73,7 @@ class MyMap extends React.Component {
     }
 
     render() {
+        const showNotif = true
         const markericon = L.icon({
             iconUrl: D1,
             iconSize: [24, 24]
@@ -105,6 +109,7 @@ class MyMap extends React.Component {
             }
         }
 
+
         //const MyCmp = (x,y) => null
 
         return (
@@ -117,9 +122,10 @@ class MyMap extends React.Component {
 
                 {/*  <MyCmp x ={}/>
                 <MarkerLayer dataMap={this.props.dataMap}/>*/}
-                <EquipmentModal modalOpen={this.props.showModal} random={random}/>
-
                 {listOfData()}
+                <EquipmentModal modalOpen={this.props.showModal} random={random}/>
+                <NotificationPopup showNotif={this.props.showNotif} msg={this.props.msg}/>
+
                 <Control position="topright">
                     <MySidebar></MySidebar>
                 </Control>

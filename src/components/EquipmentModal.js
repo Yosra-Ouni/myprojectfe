@@ -37,8 +37,6 @@ class EquipmentModal extends React.Component {
     render() {
         const data = this.props.random
         const modalOpen = this.props.modalOpen && true
-        console.log(modalOpen)
-
         const data01 = [{name: 'failed', value: data}, {name: 'success', value: 10 - data}]
         const COLORS = ['#82ca9d', '#8884d8', '#0088FE', '#00C49F']
 

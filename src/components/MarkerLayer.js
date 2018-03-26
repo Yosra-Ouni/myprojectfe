@@ -1,4 +1,5 @@
-import React from "react";
+import React from "react"
+import {connect} from 'react-redux'
 import store from '../store'
 import Control from 'react-leaflet-control'
 import {Marker} from 'react-leaflet'
@@ -49,7 +50,7 @@ class MarkerLayer extends React.Component {
                                 let device = items[0]
                                 return [(
 
-                                    <Marker position={device.gps} icon={icon(device)}>
+                                    <Marker position={device.gps} icon={icon(device)} >
                                         {/* <MarkerPopup device={device}/>  */}
                                     </Marker>
                                 )]
@@ -58,7 +59,7 @@ class MarkerLayer extends React.Component {
                                 console.log("hey I'm heeere in MultipleMarkerPopup")
                                 return [(
 
-                                    <Marker position={device.gps} icon={icons(device)}>
+                                    <Marker position={device.gps} icon={icons(device)} >
                                         {/* <MultipleMarkerPopup items={items}/> */}
                                     </Marker>
 

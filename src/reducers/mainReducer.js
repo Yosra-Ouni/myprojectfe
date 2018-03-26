@@ -46,6 +46,13 @@ const mainReducer = (state = data, action) => {
                 sameGps: {$set: action.payload}
             })
         }
+        case 'SHOW_NOTIFICATION_ACTION' :{
+            return update(state, {
+                showNotif: {$set: action.payload.showNotif},
+                msg:{$set: action.payload.msg}
+            })
+        }
+
 
         default:
             return state

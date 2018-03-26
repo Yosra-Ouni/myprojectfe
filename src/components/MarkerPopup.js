@@ -7,7 +7,9 @@ import SockJsClient from './SockJsClient';
 import {connect} from "react-redux";
 import {hideDeviceAction} from '../actions/hideDeviceAction'
 import {showHideModalAction} from '../actions/showHideModalAction'
+import {showNotificationAction} from '../actions/showNotificationAction'
 import EquipmentModal from './EquipmentModal'
+import NotificationPopup from './NotificationPopup'
 
 
 @connect((store) => {
@@ -24,6 +26,12 @@ class MarkerPopup extends React.Component {
         const max = 10
         const random = Math.floor(min + Math.random() * (max - min))
         const showModal = false
+        const showNotif = true
+        const generalPopup = (msg) => {
+            this.props.dispatch(showNotificationAction(this.props.dispatch, showNotif, msg))
+            console.log(showNotif)
+        }
+
 
         return (
             <Popup maxHeight={'150'}>
@@ -32,10 +40,12 @@ class MarkerPopup extends React.Component {
                         <SockJsClient url='http://localhost:8080/gs-guide-websocket' topics={['/topic/greetings']}
                                       onMessage={(msg) => {
                                           console.log(msg);
+                                          generalPopup(msg)
                                       }}
                                       ref={(client) => {
                                           this.clientRef = client
                                       }}/>
+
                     </div>
                     {/* <h1>{this.props.rx}</h1> onClick={() => this.props.dispatch(hideDeviceAction('dd'))} */}
                     <Icon name={"selected radio"}/>{this.props.device.type} {random} Alarms
@@ -46,9 +56,9 @@ class MarkerPopup extends React.Component {
                     </span>
                     <div>
                         <Button content={' Show Popup'} size={'tiny'} primary
-                                onClick={() => this.props.dispatch(showHideModalAction(this.props.dispatch, {showModal}, this.props.device))} />
+                                onClick={() => this.props.dispatch(showHideModalAction(this.props.dispatch, {showModal}, this.props.device))}/>
 
-                        <Button size={'tiny'}  content={' Alarms'} secondary />
+                        <Button size={'tiny'} content={' Alarms'} secondary/>
                     </div>
                 </div>
             </Popup>
