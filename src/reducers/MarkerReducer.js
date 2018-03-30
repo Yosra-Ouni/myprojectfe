@@ -1,5 +1,5 @@
 import update from 'immutability-helper';
-import hideDeviceAction from '../actions/hideDeviceAction';
+import hideDeviceAction from '../actions/showHideAlarmsModalAction';
 
 const MarkerReducer = (state, action) => {
     switch (action.type) {

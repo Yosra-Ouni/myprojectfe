@@ -4,15 +4,18 @@ import {Button, Grid, Header, Popup} from 'semantic-ui-react'
 import {showNotificationAction} from "../actions/showNotificationAction";
 import {connect} from "react-redux";
 import store from '../store'
+
 @connect((store) => {
     return {
         showNotif: store.mainReducer.showNotif,
-        msg : store.mainReducer.msg
-    }})
+        msg: store.mainReducer.msg
+    }
+})
 class NotificationPopup extends React.Component {
     constructor(props) {
         super(props)
     }
+
     handleOpen = () => {
         this.timeout = setTimeout(() => {
 
@@ -25,13 +28,13 @@ class NotificationPopup extends React.Component {
 
         return (
             <Popup
-                content={this.props.msg}
-                inverted
-                open={this.props.showNotif}
-                onClose={this.handleClose}
-                //onOpen={this.handleOpen}
-                position='bottom left'
+                   content={this.props.msg}
 
+                   open={this.props.showNotif}
+                   onClose={this.handleClose}
+                //onOpen={this.handleOpen}
+                   position='bottom right'
+                   inverted
             />
 
         )

@@ -37,8 +37,11 @@ class EquipmentModal extends React.Component {
     render() {
         const data = this.props.random
         const modalOpen = this.props.modalOpen && true
-        const data01 = [{name: 'failed', value: data}, {name: 'success', value: 10 - data}]
-        const COLORS = ['#82ca9d', '#8884d8', '#0088FE', '#00C49F']
+        const data01 = [{name: 'failed', value: data}, {name: 'success', value: 10 - data}, {
+            name: 'conceled',
+            value: 0
+        }]
+        const COLORS = [ '#0088FE', '#8884d8' ,'#00C49F','#82ca9d']
 
         const icon = () => {
             if (this.props.device.type === "device") return <Icon name={"selected radio"}/>
@@ -69,16 +72,16 @@ class EquipmentModal extends React.Component {
                 <Header icon='plus' content='Equipment details'/>
                 <Modal.Content>
                     <div>
-                        <Grid>
+                        <Grid celled='internally'>
                             <Grid.Row>
-                                <Grid.Column width={8}>
+                                <Grid.Column>
                                     <h3>{showDeviceDetails()}</h3>
                                 </Grid.Column>
                             </Grid.Row>
 
                             <Grid.Row>
                                 <Grid.Column width={8}>
-                                    <PieChart width={500} height={400}>
+                                    <PieChart width={600} height={300}>
                                         <Pie dataKey={'value'} data={data01} cx={200} cy={200} innerRadius={40}
                                              outerRadius={80} fill="#82ca9d" label>
                                             {
@@ -90,8 +93,8 @@ class EquipmentModal extends React.Component {
                                     </PieChart>
 
                                 </Grid.Column>
-                                {/*  <Grid.Column width={8}>
-                                    <LineChart width={400} height={300} data={data}
+                                <Grid.Column width={8}>
+                                    {/* <LineChart width={400} height={300} data={data}
                                                margin={{top: 5, right: 30, left: 20, bottom: 5}}>
                                         <XAxis dataKey="name"/>
                                         <YAxis/>
@@ -100,16 +103,16 @@ class EquipmentModal extends React.Component {
                                         <Legend />
                                         <Line type="monotone" dataKey="failed" stroke="#8884d8" activeDot={{r: 8}}/>
                                         <Line type="monotone" dataKey="success" stroke="#82ca9d" />
-                                    </LineChart>
+                                    </LineChart>*/}
                                 </Grid.Column>
                             </Grid.Row>
-                              <Grid.Row>
+                            <Grid.Row>
                                 <Grid.Column width={8}>
 
                                 </Grid.Column>
                                 <Grid.Column width={8}>
 
-                                </Grid.Column>*/}
+                                </Grid.Column>
                             </Grid.Row>
                         </Grid>
 

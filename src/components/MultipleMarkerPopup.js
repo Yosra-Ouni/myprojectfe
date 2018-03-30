@@ -26,7 +26,7 @@ class MultipleMarkerPopup extends React.Component {
             if (this.props.items != undefined) {
                 return (
                     <ul>
-                        {this.props.items.forEach((device) => {
+                        {this.props.items.map((device,i) => {
                             console.log(device)
                             return [(
 

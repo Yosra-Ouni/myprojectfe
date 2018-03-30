@@ -43,32 +43,34 @@ class MarkerLayer extends React.Component {
         const listOfData = () => {
             console.log(this.props.dataMap)
             if (this.props.dataMap != undefined) {
-                return (
-                        this.props.dataMap.forEach((items, index, mapObj) => {
-                            console.log(items)
-                            if (items.length === 1) {
-                                let device = items[0]
-                                return [(
+                console.log(this.props.dataMap)
+                let v = [];
+                this.props.dataMap.forEach((items, index, mapObj) => {
+                    console.log(items[0].gps)
+                    if (items.length === 1) {
+                        let device = items[0]
+                        v.push(
+                            <li key={index}>
+                                <Marker position={device.gps} icon={icon(device)}>
+                                    <MarkerPopup device={device}/> {/**/}
+                                </Marker>
+                            </li>
+                        )
+                    } else {
+                        let device = items[0]
+                        console.log("hey I'm heeere in MultipleMarkerPopup")
+                        v.push(
+                            <li key={index}>
+                                <Marker position={device.gps} icon={icons(device)}>
+                                    <MultipleMarkerPopup items={items}/>
+                                </Marker>
+                            </li>
+                        )
+                    }
 
-                                    <Marker position={device.gps} icon={icon(device)} >
-                                        {/* <MarkerPopup device={device}/>  */}
-                                    </Marker>
-                                )]
-                            } else {
-                                let device = items[0]
-                                console.log("hey I'm heeere in MultipleMarkerPopup")
-                                return [(
 
-                                    <Marker position={device.gps} icon={icons(device)} >
-                                        {/* <MultipleMarkerPopup items={items}/> */}
-                                    </Marker>
-
-                                )]
-                            }
-
-
-                        })
-                )
+                })
+                return v
             }
         }
 

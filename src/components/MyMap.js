@@ -8,6 +8,7 @@ import {Map, TileLayer, Marker, MapControl,} from 'react-leaflet'
 import MarkerPopup from "./MarkerPopup"
 import MultipleMarkerPopup from "./MultipleMarkerPopup"
 import EquipmentModal from './EquipmentModal'
+import AlarmsModal from './AlarmsModal'
 import MySidebar from "./MySideBar"
 import MarkerLayer from './MarkerLayer'
 import NotificationPopup from './NotificationPopup'
@@ -27,9 +28,11 @@ import DC from '../../public/icons/dc.png'
         dcs: store.mainReducer.dcs,
         data1: store.mainReducer.data1,
         showModal: store.mainReducer.showModal,
+        showActionModal: store.mainReducer.showActionModal,
         dataMap: store.mainReducer.dataMap,
         showNotif: store.mainReducer.showNotif,
-        msg : store.mainReducer.msg
+        msg: store.mainReducer.msg,
+        alarms : store.mainReducer.alarms
     }
 })
 
@@ -39,6 +42,7 @@ class MyMap extends React.Component {
         lat: 51.505,
         lng: -0.09,
         zoom: 12,
+        hash :this.hash()
 
     }
 
@@ -49,17 +53,38 @@ class MyMap extends React.Component {
 
     }
 
+    hash() {
+        /* Simple hash function. */
+        var a = 1, c = 0, h, o;
+        var s = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5);
+        if (s) {
+            a = 0;
+            /*jshint plusplus:false bitwise:false*/
+            for (h = s.length - 1; h >= 0; h--) {
+                o = s.charCodeAt(h);
+                a = (a << 6 & 268435455) + o + (o << 14);
+                c = a & 266338304;
+                a = c !== 0 ? a ^ c >> 21 : a;
+            }
+        }
+        return String(a);
+    }
+
+
     getInitBounds() {
-        const data1 = []
-        const bounds = this.map.leafletElement.getBounds()
-        initBoundsAction(this.props.dispatch, bounds, data1)
+        console.log(this.state.hash)
+        let bounds = this.map.leafletElement.getBounds()
+        let boundsRequest = {'bounds': bounds, 'hash': this.state.hash}
+        initBoundsAction(this.props.dispatch, boundsRequest)
         console.log(bounds)
     }
 
     updateBounds() {
-        const data1 = []
-        const bounds = this.map.leafletElement.getBounds()
-        boundsAction(this.props.dispatch, bounds)
+        console.log(this.state.hash)
+        let bounds = this.map.leafletElement.getBounds()
+        let boundsRequest = {'bounds': bounds, 'hash': this.state.hash}
+        let alarms= []
+        initBoundsAction(this.props.dispatch, boundsRequest,alarms)
         console.log(bounds)
     }
 
@@ -90,24 +115,6 @@ class MyMap extends React.Component {
         const min = 1
         const max = 10
         const random = Math.floor(min + Math.random() * (max - min))
-        const listOfData = () => {
-            if (this.props.data1 != undefined) {
-                return (
-                    <ul>
-                        {this.props.data1.map((device, i) => {
-                            return [(
-                                <li key={i}>
-                                    <Marker position={device.gps} icon={icon(device)}>
-                                        <MarkerPopup device={device}/>
-                                    </Marker>
-                                </li>)]
-
-                        })
-                        }
-                    </ul>
-                )
-            }
-        }
 
 
         //const MyCmp = (x,y) => null
@@ -120,10 +127,10 @@ class MyMap extends React.Component {
                     attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
                     url="https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png"/>
 
-                {/*  <MyCmp x ={}/>
-                <MarkerLayer dataMap={this.props.dataMap}/>*/}
-                {listOfData()}
+                {/*  <MyCmp x ={}/>*/}
+                <MarkerLayer dataMap={this.props.dataMap}/>
                 <EquipmentModal modalOpen={this.props.showModal} random={random}/>
+                <AlarmsModal showActionModal={this.props.showActionModal} alarms={this.props.alarms} />
                 <NotificationPopup showNotif={this.props.showNotif} msg={this.props.msg}/>
 
                 <Control position="topright">

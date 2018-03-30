@@ -31,8 +31,8 @@ const mainReducer = (state = data, action) => {
         case  "INIT_BOUNDS_ACTION_FULFILLED": {
             return update(state, {
                 bounds: {$set: action.bounds},
-                data1: {$set: action.payload.data.devices}
-               // dataMap :{$set: action.payload}
+                dataMap :{$set: action.payload.dataMap},
+                alarms:{$set: action.payload.alarms}
             })
         }
         case  "SHOW_HIDE_MODAL_ACTION": {
@@ -50,6 +50,19 @@ const mainReducer = (state = data, action) => {
             return update(state, {
                 showNotif: {$set: action.payload.showNotif},
                 msg:{$set: action.payload.msg}
+            })
+        }
+        case  'ALARMS_ACTION' : {
+            return update(state, {
+                deviceId: {$set: action.payload.deviceId},
+                alarms:{$set: action.payload.alarms}
+            })
+
+        }
+        case 'SHOW_HIDE_ALARMS_MODAL_ACTION':{
+            return update(state, {
+                showActionModal: {$set: action.payload.showActionModal},
+                device:{$set: action.payload.device}
             })
         }
 
