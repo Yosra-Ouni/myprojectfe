@@ -30,33 +30,59 @@ class AlarmsModal extends React.Component {
 
     render() {
         const modalOpen = this.props.showActionModal && true
-        const listOfAlarms =() =>{
+        const listOfAlarms = () => {
             if (this.props.alarms != undefined) {
+                let v = []
                 console.log(this.props.alarms)
-                this.props.alarms.map((alarm, i) => {
-                    return (
-                        <li key={index}>
-                            <h3>
-                                {alarm}
-                            </h3>
-                        </li>)
-                } )}
-    }
+                {
+                    this.props.alarms.map((alarm, index) => {
+
+                        {
+                            alarm.alarms.map((item, i) => {
+
+                                console.log(item.type)
+                                v.push(
+                                    <div key ={i}>
+                                        < Icon name={"selected radio"}/> device Id : {alarm.serialNumber} <br/>
+                                        < Icon name={"bell"}/> Type : {item.type} <br/>
+                                        < Icon name={"alarm"}/> content : {item.content} <br/>
+
+                                    </div>)
+                            })
+
+                        }
+
+                    })
+                }
+                return v
+            }
+        }
         return (
             <Modal
                 open={modalOpen}
                 onClose={this.handleClose}
-                size='large'
+                size='small'
                 //dimmer={"inverted"}
-                basic
                 closeIcon
             >
-                <Grid>
-                    <Grid.Row>
-                        {listOfAlarms()}
-                    {/* */}
-                    </Grid.Row>
-                </Grid>
+                <Modal.Content>
+                    <Grid celled='internally'>
+                        <Grid.Row>
+                            <h3>
+                                {listOfAlarms()}
+
+                            </h3>
+                        </Grid.Row>
+                    </Grid>
+                </Modal.Content>
+                <Modal.Actions>
+                    <Button //color='blue'
+                        color='teal'
+                        onClick={this.handleClose}
+                        >
+                        <Icon name='checkmark'/> Done
+                    </Button>
+                </Modal.Actions>
             </Modal>
         )
     }

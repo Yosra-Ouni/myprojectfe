@@ -15,6 +15,7 @@ import NotificationPopup from './NotificationPopup'
 import L from 'leaflet'
 import {boundsAction} from '../actions/boundsAction'
 import {initBoundsAction} from '../actions/initBoundsAction'
+import {deleteBoundsStoreAction} from '../actions/deleteBoundsStoreAction'
 import D1 from '../../public/icons/device.png'
 import D2 from '../../public/icons/devices.png'
 import DC from '../../public/icons/dc.png'
@@ -81,11 +82,14 @@ class MyMap extends React.Component {
 
     updateBounds() {
         console.log(this.state.hash)
-        let bounds = this.map.leafletElement.getBounds()
-        let boundsRequest = {'bounds': bounds, 'hash': this.state.hash}
         let alarms= []
-        initBoundsAction(this.props.dispatch, boundsRequest,alarms)
-        console.log(bounds)
+        let bounds = this.map.leafletElement.getBounds()
+        console.log('===width=>', this.map.leafletElement.getBounds().getEast() - this.map.leafletElement.getBounds().getWest() )
+        console.log('===hight=>', this.map.leafletElement.getBounds().getNorth() - this.map.leafletElement.getBounds().getSouth() )
+        console.log('===bounds=>',bounds)
+        let boundsRequest = {'bounds': bounds, 'hash': this.state.hash}
+        BoundsAction(this.props.dispatch, boundsRequest,alarms)
+
     }
 
 
@@ -93,8 +97,11 @@ class MyMap extends React.Component {
         this.getInitBounds()
     }
 
-    componentDidUpdate() {
-
+    componentWillUnmount() {
+        let bounds = this.map.leafletElement.getBounds()
+        let boundsRequest = {'bounds': bounds, 'hash': this.state.hash}
+        deleteBoundsStoreAction(this.props.dispatch, boundsRequest)
+        console.log("component unmounted" )
     }
 
     render() {
@@ -125,7 +132,7 @@ class MyMap extends React.Component {
             }} onLoad={this.getInitBounds} onMoveEnd={this.updateBounds}>
                 <TileLayer
                     attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-                    url="https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png"/>
+                    url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png"/>
 
                 {/*  <MyCmp x ={}/>*/}
                 <MarkerLayer dataMap={this.props.dataMap}/>
@@ -134,7 +141,7 @@ class MyMap extends React.Component {
                 <NotificationPopup showNotif={this.props.showNotif} msg={this.props.msg}/>
 
                 <Control position="topright">
-                    <MySidebar></MySidebar>
+                    <MySidebar alarms={this.props.alarms} dispatch={this.props.dispatch}></MySidebar>
                 </Control>
             </Map>
         )

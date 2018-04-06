@@ -31,13 +31,13 @@ class MarkerPopup extends React.Component {
         const max = 10
         const random = Math.floor(min + Math.random() * (max - min))
         const showModal = false
-        const showActionModal = false
+        const showActionModal = true
         const showNotif = true
         const alarms = []
         const generalPopup = (msg) => {
             this.props.dispatch(showNotificationAction(this.props.dispatch, showNotif, msg))
            // this.props.alarms.push(msg)
-            this.props.dispatch(alarmsAction(this.props.dispatch, this.props.device.id, alarms))
+            //this.props.dispatch(alarmsAction(this.props.dispatch, this.props.device.id, alarms))
         }
         return (
             <Popup maxHeight={'150'}>
@@ -54,20 +54,20 @@ class MarkerPopup extends React.Component {
 
                     </div>
                     {/* <h1>{this.props.rx}</h1> onClick={() => this.props.dispatch(hideDeviceAction('dd'))} */}
-                    <Icon name={"selected radio"}/>{this.props.device.type} {random} Alarms {this.props.device.status}
-                    <span>{this.props.device.id} <br/>
+                    <Icon name={"selected radio"}/>{this.props.device.type} {this.props.device.serialNumber}
+                    {this.props.device.status} <br/>
+                    <Icon name={"marker"}/> ( {this.props.device.gps.lat} , {this.props.device.gps.lng} ) <br/>
+                    <Icon name={"bell"}/> {random} Alarms <br/>
                     <Icon name={"location arrow"}/> {this.props.device.address} <br/>
                     <Icon name={"map"}/> {this.props.device.region} <br/>
-                    <Icon name={"marker"}/> ( {this.props.device.gps.lat} , {this.props.device.gps.lng} ) <br/>
-                    </span>
                     <div>
-                        <Button content={' Show Popup'} size={'tiny'} primary
+                        <Button content={' Show Popup'} size={'tiny'} color='teal'
                                 onClick={() => this.props.dispatch(showHideModalAction(this.props.dispatch, {showModal}, this.props.device))}/>
 
                         <Button size={'tiny'} content={' Alarms'} secondary
                                 onClick={() => {
                                     //this.props.dispatch(alarmsAction(this.props.dispatch, this.props.device.id, alarms))
-                                    this.props.dispatch(showHideAlarmsModalAction(this.props.dispatch, {showActionModal}, this.props.device))
+                                    this.props.dispatch(showHideAlarmsModalAction(this.props.dispatch, showActionModal))
                                 }}/>
                     </div>
                 </div>

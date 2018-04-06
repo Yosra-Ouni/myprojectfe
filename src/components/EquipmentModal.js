@@ -41,7 +41,22 @@ class EquipmentModal extends React.Component {
             name: 'conceled',
             value: 0
         }]
-        const COLORS = [ '#0088FE', '#8884d8' ,'#00C49F','#82ca9d']
+        const data02 = [
+            {name: 'Jan', x: data},
+            {name: 'Feb ', x: 10-data},
+            {name: 'Mar ', x: 7},
+            {name: 'Apr ', x: 6},
+            {name: 'Mai ', x: 5},
+            {name: 'Jun ', x: 1},
+            {name: 'Jul ', x: 3},
+            {name: 'Aug ', x: 5},
+            {name: 'Sep ', x: 9},
+            {name: 'Oct ', x: 10},
+            {name: 'Nov ', x: 0},
+            {name: 'Dec ', x: 6},
+
+        ];
+        const COLORS = [  '#8884d8' ,'#00C49F','#0088FE','#82ca9d']
 
         const icon = () => {
             if (this.props.device.type === "device") return <Icon name={"selected radio"}/>
@@ -51,11 +66,11 @@ class EquipmentModal extends React.Component {
             if (this.props.device != undefined) {
                 return (
                     <div>
-                        {icon()} {this.props.device.type}
-                        {this.props.device.id}<br/>
+                        {icon()} {this.props.device.type} {this.props.device.serialNumber}<br/>
+                        < Icon name={"marker"}/> ( {this.props.device.gps.lat} , {this.props.device.gps.lng} ) <br/>
                         < Icon name={"location arrow"}/> {this.props.device.address} <br/>
                         < Icon name={"map"}/> {this.props.device.region} <br/>
-                        < Icon name={"marker"}/> ( {this.props.device.gps.lat} , {this.props.device.gps.lng} ) <br/>
+
                     </div>
                 )
             }
@@ -94,35 +109,35 @@ class EquipmentModal extends React.Component {
 
                                 </Grid.Column>
                                 <Grid.Column width={8}>
-                                    {/* <LineChart width={400} height={300} data={data}
+                                     <LineChart width={500} height={300} data={data02}
                                                margin={{top: 5, right: 30, left: 20, bottom: 5}}>
                                         <XAxis dataKey="name"/>
                                         <YAxis/>
                                         <CartesianGrid strokeDasharray="3 3"/>
                                         <Tooltip/>
                                         <Legend />
-                                        <Line type="monotone" dataKey="failed" stroke="#8884d8" activeDot={{r: 8}}/>
-                                        <Line type="monotone" dataKey="success" stroke="#82ca9d" />
-                                    </LineChart>*/}
+                                        <Line type="monotone" dataKey="x" stroke="#8884d8" activeDot={{r: 8}}/>
+                                    </LineChart>
                                 </Grid.Column>
                             </Grid.Row>
-                            <Grid.Row>
+                            {/* <Grid.Row>
                                 <Grid.Column width={8}>
 
                                 </Grid.Column>
                                 <Grid.Column width={8}>
 
                                 </Grid.Column>
-                            </Grid.Row>
+                            </Grid.Row>*/}
                         </Grid>
 
                     </div>
                 </Modal.Content>
                 <Modal.Actions>
                     <Button //color='blue'
-                        primary
+                        color='teal'
                         onClick={this.handleClose}
-                        inverted>
+                        //inverted
+                        >
                         <Icon name='checkmark'/> Done
                     </Button>
                 </Modal.Actions>

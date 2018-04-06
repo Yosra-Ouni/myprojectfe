@@ -70,6 +70,11 @@ class MarkerLayer extends React.Component {
 
 
                 })
+                {/*v.push(
+                    <li key={'lol'}>
+                        <Marker position={[51.625263734761276,-0.28358459462656256]} icon={markericon1}/>
+                    </li>
+                ) */}
                 return v
             }
         }

@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export const boundsAction = (dispatch, bounds) => {
+export const boundsAction = (dispatch, bounds, alarms) => {
     return dispatch({
         type: 'BOUNDS_ACTION',
         payload: axios.post("http://localhost:8080/api/equipments/all", bounds )
@@ -19,25 +19,9 @@ export const boundsAction = (dispatch, bounds) => {
                           values.push(equipment)
                           dataMap.set(`${key.lat},${key.lng}`, values)
                       }
-                    /*  var keys = dataMap.keys()
-                while (keys.next().value != undefined) {
-                        key = keys.next().value
-                    if (key === gps) {
-                        let values = dataMap.get(key)
-                        values.push(equipment)
-                        dataMap.set(key, values)
 
-                    } else {
-                        let values = []
-                        values.push(equipment)
-                        dataMap.set(key, values)
-                        console.log(values)
-
-                    }
-
-                }*/
                 })
-                return dataMap
+                return{dataMap,alarms}
             })
 
             .catch(function (error) {

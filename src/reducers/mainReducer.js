@@ -61,9 +61,12 @@ const mainReducer = (state = data, action) => {
         }
         case 'SHOW_HIDE_ALARMS_MODAL_ACTION':{
             return update(state, {
-                showActionModal: {$set: action.payload.showActionModal},
-                device:{$set: action.payload.device}
+                showActionModal: {$set: action.payload},
+                //device:{$set: action.payload.device}
             })
+        }
+        case 'DELETE_BOUNDS_STORE_ACTION':{
+            return null
         }
 
 
