@@ -26,9 +26,6 @@ class EquipmentModal extends React.Component {
 
     constructor(props) {
         super(props)
-    }
-
-    componentDidMount() {
 
     }
 
@@ -43,7 +40,7 @@ class EquipmentModal extends React.Component {
         }]
         const data02 = [
             {name: 'Jan', x: data},
-            {name: 'Feb ', x: 10-data},
+            {name: 'Feb ', x: 10 - data},
             {name: 'Mar ', x: 7},
             {name: 'Apr ', x: 6},
             {name: 'Mai ', x: 5},
@@ -56,7 +53,7 @@ class EquipmentModal extends React.Component {
             {name: 'Dec ', x: 6},
 
         ];
-        const COLORS = [  '#8884d8' ,'#00C49F','#0088FE','#82ca9d']
+        const COLORS = ['#8884d8', '#00C49F', '#0088FE', '#82ca9d']
 
         const icon = () => {
             if (this.props.device.type === "device") return <Icon name={"selected radio"}/>
@@ -109,13 +106,13 @@ class EquipmentModal extends React.Component {
 
                                 </Grid.Column>
                                 <Grid.Column width={8}>
-                                     <LineChart width={500} height={300} data={data02}
+                                    <LineChart width={500} height={300} data={data02}
                                                margin={{top: 5, right: 30, left: 20, bottom: 5}}>
                                         <XAxis dataKey="name"/>
                                         <YAxis/>
                                         <CartesianGrid strokeDasharray="3 3"/>
                                         <Tooltip/>
-                                        <Legend />
+                                        <Legend/>
                                         <Line type="monotone" dataKey="x" stroke="#8884d8" activeDot={{r: 8}}/>
                                     </LineChart>
                                 </Grid.Column>
@@ -137,7 +134,7 @@ class EquipmentModal extends React.Component {
                         color='teal'
                         onClick={this.handleClose}
                         //inverted
-                        >
+                    >
                         <Icon name='checkmark'/> Done
                     </Button>
                 </Modal.Actions>

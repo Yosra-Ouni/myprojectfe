@@ -33,7 +33,7 @@ import DC from '../../public/icons/dc.png'
         dataMap: store.mainReducer.dataMap,
         showNotif: store.mainReducer.showNotif,
         msg: store.mainReducer.msg,
-        alarms : store.mainReducer.alarms
+        alarms: store.mainReducer.alarms
     }
 })
 
@@ -43,14 +43,27 @@ class MyMap extends React.Component {
         lat: 51.505,
         lng: -0.09,
         zoom: 12,
-        hash :this.hash()
+        hash: this.hash()
 
     }
 
     constructor(props) {
         super(props)
         this.updateBounds = this.updateBounds.bind(this)
+        this.onUnload = this.onUnload.bind(this);
 
+    }
+
+    onUnload(event) { // the method that will be used for both add and remove event
+        console.log("paaaawwww")
+        return "paaaawwww"
+       event.returnValue = "paaaawwww"
+    }
+
+    deleteData() {
+        let bounds = this.map.leafletElement.getBounds()
+        let boundsRequest = {'bounds': bounds, 'hash': this.state.hash}
+        deleteBoundsStoreAction(this.props.dispatch, boundsRequest)
 
     }
 
@@ -73,35 +86,37 @@ class MyMap extends React.Component {
 
 
     getInitBounds() {
+        let alarms = []
         console.log(this.state.hash)
         let bounds = this.map.leafletElement.getBounds()
         let boundsRequest = {'bounds': bounds, 'hash': this.state.hash}
-        initBoundsAction(this.props.dispatch, boundsRequest)
+        initBoundsAction(this.props.dispatch, boundsRequest, alarms)
         console.log(bounds)
     }
 
     updateBounds() {
         console.log(this.state.hash)
-        let alarms= []
+        let alarms = []
         let bounds = this.map.leafletElement.getBounds()
-        console.log('===width=>', this.map.leafletElement.getBounds().getEast() - this.map.leafletElement.getBounds().getWest() )
-        console.log('===hight=>', this.map.leafletElement.getBounds().getNorth() - this.map.leafletElement.getBounds().getSouth() )
-        console.log('===bounds=>',bounds)
+        console.log('===width=>', this.map.leafletElement.getBounds().getEast() - this.map.leafletElement.getBounds().getWest())
+        console.log('===hight=>', this.map.leafletElement.getBounds().getNorth() - this.map.leafletElement.getBounds().getSouth())
+        console.log('===bounds=>', bounds)
         let boundsRequest = {'bounds': bounds, 'hash': this.state.hash}
-        BoundsAction(this.props.dispatch, boundsRequest,alarms)
+        boundsAction(this.props.dispatch, boundsRequest, alarms)
 
     }
 
 
     componentDidMount() {
+        window.addEventListener("beforeunload", this.onUnload)
         this.getInitBounds()
+
     }
 
     componentWillUnmount() {
-        let bounds = this.map.leafletElement.getBounds()
-        let boundsRequest = {'bounds': bounds, 'hash': this.state.hash}
-        deleteBoundsStoreAction(this.props.dispatch, boundsRequest)
-        console.log("component unmounted" )
+
+        console.log("component unmounted")
+        // window.removeEventListener("beforeunload", this.onUnload)
     }
 
     render() {
@@ -137,7 +152,7 @@ class MyMap extends React.Component {
                 {/*  <MyCmp x ={}/>*/}
                 <MarkerLayer dataMap={this.props.dataMap}/>
                 <EquipmentModal modalOpen={this.props.showModal} random={random}/>
-                <AlarmsModal showActionModal={this.props.showActionModal} alarms={this.props.alarms} />
+                <AlarmsModal showActionModal={this.props.showActionModal} alarms={this.props.alarms}/>
                 <NotificationPopup showNotif={this.props.showNotif} msg={this.props.msg}/>
 
                 <Control position="topright">

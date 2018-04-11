@@ -23,8 +23,8 @@ const mainReducer = (state = data, action) => {
             console.log(action.payload)
             return update(state, {
                 bounds: {$set: action.bounds},
-                //data1: {$set: action.payload.data.devices},
-                dataMap :{$set: action.payload}
+                dataMap :{$set: action.payload.dataMap},
+                alarms:{$set: action.payload.alarms}
 
             })
         }
