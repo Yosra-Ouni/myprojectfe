@@ -29,6 +29,7 @@
     "leaflet": "^1.0.3",
     "material-ui": "^0.17.3",
     "react": "^16.0.0",
+    "react-beforeunload": "^1.0.4",
     "react-bootstrap": "^0.30.8",
     "react-bootstrap-slider": "^1.1.7",
     "react-cellblock": "^3.0.0",

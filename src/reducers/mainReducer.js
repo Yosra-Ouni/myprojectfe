@@ -1,7 +1,6 @@
-import update from 'immutability-helper';
+import update from 'immutability-helper'
 import axios from 'axios'
-import {data} from '../../initData.js' ;
-import boundsAction from '../actions/boundsAction'
+import {data} from '../../initData.js'
 import initBoundsAction from '../actions/initBoundsAction'
 import showModalAction from '../actions/showHideModalAction'
 
@@ -16,15 +15,6 @@ const mainReducer = (state = data, action) => {
         case  "HIDE_DEVICE_ACTION": {
             return update(state, {
                 device: {$set: action.payload}
-
-            })
-        }
-        case  "BOUNDS_ACTION_FULFILLED": {
-            console.log(action.payload)
-            return update(state, {
-                bounds: {$set: action.bounds},
-                dataMap :{$set: action.payload.dataMap},
-                alarms:{$set: action.payload.alarms}
 
             })
         }

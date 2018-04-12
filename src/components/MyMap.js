@@ -12,14 +12,14 @@ import AlarmsModal from './AlarmsModal'
 import MySidebar from "./MySideBar"
 import MarkerLayer from './MarkerLayer'
 import NotificationPopup from './NotificationPopup'
+import SockJsClient from './SockJsClient'
 import L from 'leaflet'
-import {boundsAction} from '../actions/boundsAction'
 import {initBoundsAction} from '../actions/initBoundsAction'
 import {deleteBoundsStoreAction} from '../actions/deleteBoundsStoreAction'
 import D1 from '../../public/icons/device.png'
 import D2 from '../../public/icons/devices.png'
 import DC from '../../public/icons/dc.png'
-
+//import Beforeunload from 'react-beforeunload'
 //import {displayEquipmentsAction} from '../actions/displayEquipmentsAction'
 
 
@@ -50,14 +50,7 @@ class MyMap extends React.Component {
     constructor(props) {
         super(props)
         this.updateBounds = this.updateBounds.bind(this)
-        this.onUnload = this.onUnload.bind(this);
 
-    }
-
-    onUnload(event) { // the method that will be used for both add and remove event
-        console.log("paaaawwww")
-        return "paaaawwww"
-       event.returnValue = "paaaawwww"
     }
 
     deleteData() {
@@ -102,21 +95,19 @@ class MyMap extends React.Component {
         console.log('===hight=>', this.map.leafletElement.getBounds().getNorth() - this.map.leafletElement.getBounds().getSouth())
         console.log('===bounds=>', bounds)
         let boundsRequest = {'bounds': bounds, 'hash': this.state.hash}
-        boundsAction(this.props.dispatch, boundsRequest, alarms)
+        initBoundsAction(this.props.dispatch, boundsRequest, alarms)
 
     }
 
 
     componentDidMount() {
-        window.addEventListener("beforeunload", this.onUnload)
         this.getInitBounds()
 
     }
 
     componentWillUnmount() {
-
         console.log("component unmounted")
-        // window.removeEventListener("beforeunload", this.onUnload)
+
     }
 
     render() {
@@ -142,23 +133,35 @@ class MyMap extends React.Component {
         //const MyCmp = (x,y) => null
 
         return (
-            <Map center={position} zoom={this.state.zoom} ref={(ref) => {
-                this.map = ref;
-            }} onLoad={this.getInitBounds} onMoveEnd={this.updateBounds}>
-                <TileLayer
-                    attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-                    url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png"/>
+            <div>
+                <SockJsClient url='http://localhost:8080/gs-guide-websocket' topics={['/topic/all']}
+                              onMessage={(msg) => {
+                                  console.log(msg)
 
-                {/*  <MyCmp x ={}/>*/}
-                <MarkerLayer dataMap={this.props.dataMap}/>
-                <EquipmentModal modalOpen={this.props.showModal} random={random}/>
-                <AlarmsModal showActionModal={this.props.showActionModal} alarms={this.props.alarms}/>
-                <NotificationPopup showNotif={this.props.showNotif} msg={this.props.msg}/>
+                              }}
+                              ref={(client) => {
+                                  this.clientRef = client
+                              }}/>
 
-                <Control position="topright">
-                    <MySidebar alarms={this.props.alarms} dispatch={this.props.dispatch}></MySidebar>
-                </Control>
-            </Map>
+
+                <Map center={position} zoom={this.state.zoom} ref={(ref) => {
+                    this.map = ref;
+                }} onLoad={this.getInitBounds} onMoveEnd={this.updateBounds}>
+                    <TileLayer
+                        attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                        url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png"/>
+
+                    {/*  <MyCmp x ={}/>*/}
+                    <MarkerLayer dataMap={this.props.dataMap}/>
+                    <EquipmentModal modalOpen={this.props.showModal} random={random}/>
+                    <AlarmsModal showActionModal={this.props.showActionModal} alarms={this.props.alarms}/>
+                    <NotificationPopup showNotif={this.props.showNotif} msg={this.props.msg}/>
+
+                    <Control position="topright">
+                        <MySidebar alarms={this.props.alarms} dispatch={this.props.dispatch}></MySidebar>
+                    </Control>
+                </Map>
+            </div>
         )
     }
 }

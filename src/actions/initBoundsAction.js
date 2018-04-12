@@ -22,9 +22,7 @@ export const initBoundsAction = (dispatch, bounds, alarms) => {
                     }
 
                 })
-                return {dataMap,
-                    alarms
-                }
+                return {dataMap, alarms}
 
             })
 
