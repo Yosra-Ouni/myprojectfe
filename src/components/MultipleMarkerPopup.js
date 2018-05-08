@@ -7,7 +7,9 @@ import Control from 'react-leaflet-control'
 import {Marker, Popup} from 'react-leaflet'
 import {showHideModalAction} from "../actions/showHideModalAction"
 import SockJsClient from './SockJsClient'
-import {showNotificationAction} from "../actions/showNotificationAction";
+import {showNotificationAction} from "../actions/showNotificationAction"
+import MarkerPopup from "./MarkerPopup"
+
 @connect((store) => {
     return {
         showModal: store.mainReducer.showModal,
@@ -28,6 +30,9 @@ class MultipleMarkerPopup extends React.Component {
             // this.props.alarms.push(msg)
             //this.props.dispatch(alarmsAction(this.props.dispatch, this.props.device.id, alarms))
         }
+        const handleClick = (device) => {
+            return (<MarkerPopup device={device}/>)
+        }
         const listOfItems = () => {
             console.log()
             if (this.props.items != undefined) {
@@ -40,7 +45,8 @@ class MultipleMarkerPopup extends React.Component {
                                     {icon(device)} {device.type} {device.serialNumber}
 
                                     < Icon name={'plus'} color='teal' size={'large'}
-                                            onClick={() => this.props.dispatch(showHideModalAction(this.props.dispatch, {showModal}, device))}/>
+                                        onClick={() => showHideModalAction(this.props.dispatch, {showModal}, device)}/>
+
                                 </div>
 
                             )

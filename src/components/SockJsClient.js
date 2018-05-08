@@ -106,6 +106,7 @@ class SockJsClient extends React.Component {
         console.log("init done ")
         this.client.connect(this.props.headers, () => {
         this.setState({connected: true});
+       console.log('=============='+ JSON.stringify(this.props.headers))
         this.props.topics.forEach((topic) => {
         this.subscribe(topic,function (greeting) {
         console.log(JSON.parse(greeting.body).content);

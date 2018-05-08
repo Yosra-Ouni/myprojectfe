@@ -52,7 +52,7 @@ class MarkerLayer extends React.Component {
                         v.push(
                             <li key={index}>
                                 <Marker position={device.gps} icon={icon(device)}>
-                                    <MarkerPopup device={device}/> {/**/}
+                                    <MarkerPopup device={device} hash={this.props.hash}/> {/**/}
                                 </Marker>
                             </li>
                         )

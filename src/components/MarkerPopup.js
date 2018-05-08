@@ -21,11 +21,11 @@ import NotificationPopup from './NotificationPopup'
     }
 })
 class MarkerPopup extends React.Component {
+
     constructor(props) {
         super(props)
-
     }
-
+    //handleClose = () => this.setState({showPopup: false})
     render() {
         const min = 1
         const max = 10
@@ -33,10 +33,11 @@ class MarkerPopup extends React.Component {
         const showModal = false
         const showActionModal = true
         const showNotif = true
+
         const alarms = []
         const generalPopup = (msg) => {
             this.props.dispatch(showNotificationAction(this.props.dispatch, showNotif, msg))
-           // this.props.alarms.push(msg)
+            // this.props.alarms.push(msg)
             //this.props.dispatch(alarmsAction(this.props.dispatch, this.props.device.id, alarms))
         }
         return (
@@ -44,6 +45,7 @@ class MarkerPopup extends React.Component {
                 <div>
                     <div>
                         <SockJsClient url='http://localhost:8080/gs-guide-websocket' topics={['/topic/greetings']}
+                                      headers={{hash: "null"}}
                                       onMessage={(msg) => {
                                           console.log(msg)
                                           generalPopup(msg)
@@ -53,7 +55,6 @@ class MarkerPopup extends React.Component {
                                       }}/>
 
                     </div>
-                    {/* <h1>{this.props.rx}</h1> onClick={() => this.props.dispatch(hideDeviceAction('dd'))} */}
                     <Icon name={"selected radio"}/>{this.props.device.type} {this.props.device.serialNumber}
                     {this.props.device.status} <br/>
                     <Icon name={"marker"}/> ( {this.props.device.gps.lat} , {this.props.device.gps.lng} ) <br/>

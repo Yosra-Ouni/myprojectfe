@@ -5,7 +5,6 @@ import 'semantic-ui-css/semantic.min.css'
 import {Input, Button, Icon, Sidebar, Popup} from 'semantic-ui-react'
 import Control from 'react-leaflet-control'
 import {Map, TileLayer, Marker, MapControl,} from 'react-leaflet'
-import MarkerPopup from "./MarkerPopup"
 import MultipleMarkerPopup from "./MultipleMarkerPopup"
 import EquipmentModal from './EquipmentModal'
 import AlarmsModal from './AlarmsModal'
@@ -33,7 +32,8 @@ import DC from '../../public/icons/dc.png'
         dataMap: store.mainReducer.dataMap,
         showNotif: store.mainReducer.showNotif,
         msg: store.mainReducer.msg,
-        alarms: store.mainReducer.alarms
+        alarms: store.mainReducer.alarms,
+        bounds: store.mainReducer.bounds
     }
 })
 
@@ -99,71 +99,92 @@ class MyMap extends React.Component {
 
     }
 
-
-    componentDidMount() {
-        this.getInitBounds()
-
-    }
-
-    componentWillUnmount() {
-        console.log("component unmounted")
-
-    }
-
-    render() {
-        const showNotif = true
-        const markericon = L.icon({
-            iconUrl: D1,
-            iconSize: [24, 24]
-        })
-        const markericon2 = L.icon({
-            iconUrl: DC,
-            iconSize: [24, 24]
-        })
-        const icon = (device) => {
-            if (device.type === "device") return markericon
-            else if (device.type === "dc") return markericon2
+/* sortPerEquipmentType() {
+        if (this.props.dataMap != undefined) {
+            let devices = [];
+            let dcs = [];
+            this.props.dataMap.forEach((items, index, mapObj) => {
+                items.map((item, i) => {
+                    if (item.type == "device"){
+                        devices.push(item)
+                    }else {
+                        dcs.push(item)
+                    }
+                })
+            })
         }
-        const position = [this.state.lat, this.state.lng]
-        const min = 1
-        const max = 10
-        const random = Math.floor(min + Math.random() * (max - min))
-
-
-        //const MyCmp = (x,y) => null
-
-        return (
-            <div>
-                <SockJsClient url='http://localhost:8080/gs-guide-websocket' topics={['/topic/all']}
-                              onMessage={(msg) => {
-                                  console.log(msg)
-
-                              }}
-                              ref={(client) => {
-                                  this.clientRef = client
-                              }}/>
-
-
-                <Map center={position} zoom={this.state.zoom} ref={(ref) => {
-                    this.map = ref;
-                }} onLoad={this.getInitBounds} onMoveEnd={this.updateBounds}>
-                    <TileLayer
-                        attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-                        url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png"/>
-
-                    {/*  <MyCmp x ={}/>*/}
-                    <MarkerLayer dataMap={this.props.dataMap}/>
-                    <EquipmentModal modalOpen={this.props.showModal} random={random}/>
-                    <AlarmsModal showActionModal={this.props.showActionModal} alarms={this.props.alarms}/>
-                    <NotificationPopup showNotif={this.props.showNotif} msg={this.props.msg}/>
-
-                    <Control position="topright">
-                        <MySidebar alarms={this.props.alarms} dispatch={this.props.dispatch}></MySidebar>
-                    </Control>
-                </Map>
-            </div>
-        )
     }
+*/
+
+
+componentDidMount()
+{
+    this.getInitBounds()
+
+}
+
+componentWillUnmount()
+{
+    console.log("component unmounted")
+
+}
+
+render()
+{
+    const showNotif = true
+    const markericon = L.icon({
+        iconUrl: D1,
+        iconSize: [24, 24]
+    })
+    const markericon2 = L.icon({
+        iconUrl: DC,
+        iconSize: [24, 24]
+    })
+    const icon = (device) => {
+        if (device.type === "device") return markericon
+        else if (device.type === "dc") return markericon2
+    }
+    const position = [this.state.lat, this.state.lng]
+    const min = 1
+    const max = 10
+    const random = Math.floor(min + Math.random() * (max - min))
+    console.log(this.props.boundsRequest)
+    //const MyCmp = (x,y) => null
+
+    return (
+        <div>
+            <SockJsClient url='http://localhost:8080/gs-guide-websocket' topics={['/topic/all']}
+                          headers={{hash: this.state.hash}}
+                          onMessage={(msg) => {
+                              console.log(msg)
+
+                          }}
+                          ref={(client) => {
+                              this.clientRef = client
+                          }}/>
+
+
+            <Map center={position} zoom={this.state.zoom} ref={(ref) => {
+                this.map = ref;
+            }} onLoad={this.getInitBounds} onMoveEnd={this.updateBounds}>
+                <TileLayer
+                    attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                    url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png"/>
+
+                {/*  <MyCmp x ={}/>*/}
+                <MarkerLayer dataMap={this.props.dataMap} hash={this.state.hash}/>
+                <EquipmentModal modalOpen={this.props.showModal} random={random}/>
+                <AlarmsModal showActionModal={this.props.showActionModal} alarms={this.props.alarms}/>
+                <NotificationPopup showNotif={this.props.showNotif} msg={this.props.msg}/>
+
+                <Control position="topright">
+                    <MySidebar dispatch={this.props.dispatch} dataMap={this.props.dataMap}
+                               bounds={this.props.bounds}/>
+                </Control>
+            </Map>
+        </div>
+    )
+}
 }
 
 export default MyMap
