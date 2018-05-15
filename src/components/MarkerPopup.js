@@ -45,7 +45,7 @@ class MarkerPopup extends React.Component {
                 <div>
                     <div>
                         <SockJsClient url='http://localhost:8080/gs-guide-websocket' topics={['/topic/greetings']}
-                                      headers={{hash: "null"}}
+                                     x
                                       onMessage={(msg) => {
                                           console.log(msg)
                                           generalPopup(msg)
@@ -58,7 +58,7 @@ class MarkerPopup extends React.Component {
                     <Icon name={"selected radio"}/>{this.props.device.type} {this.props.device.serialNumber}
                     {this.props.device.status} <br/>
                     <Icon name={"marker"}/> ( {this.props.device.gps.lat} , {this.props.device.gps.lng} ) <br/>
-                    <Icon name={"bell"}/> {random} Alarms <br/>
+                    <Icon name={"bell"}/> {random} {alarms.length} Alarms <br/>
                     <Icon name={"location arrow"}/> {this.props.device.address} <br/>
                     <Icon name={"map"}/> {this.props.device.region} <br/>
                     <div>

@@ -25,7 +25,8 @@ const mainReducer = (state = data, action) => {
             return update(state, {
                 bounds: {$set: action.payload.bounds},
                 dataMap: {$set: action.payload.dataMap},
-                alarms: {$set: action.payload.alarms}
+                alarms: {$set: action.payload.alarms},
+                initBoundActionFulField: {$set: true}
             })
         }
         case  "SHOW_DEVICES_ONLY_FULFILLED": {
@@ -38,8 +39,8 @@ const mainReducer = (state = data, action) => {
         case  "SHOW_DCS_ONLY_FULFILLED": {
             return update(state, {
                 bounds: {$set: action.payload.bounds},
-                dataMap :{$set: action.payload.dataMap},
-                alarms:{$set: action.payload.alarms}
+                dataMap: {$set: action.payload.dataMap},
+                alarms: {$set: action.payload.alarms}
             })
         }
         case  "SHOW_HIDE_MODAL_ACTION": {
@@ -74,6 +75,12 @@ const mainReducer = (state = data, action) => {
         }
         case 'DELETE_BOUNDS_STORE_ACTION': {
             return null
+        }
+        case 'GLOBAL_NOTIFICATION_ACTION' : {
+            return update(state, {
+                msg: {$set: action.payload.msg},
+                showGlobalNotif: {$set: action.payload.showGlobalNotif}
+            })
         }
 
 

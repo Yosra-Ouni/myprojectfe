@@ -159,8 +159,8 @@ class SockJsClient extends React.Component {
 
     sendMessage = (topic, msg, opt_headers = {}) => {
         if (this.state.connected) {
-        //'app/hello' just to test instead of topic
-        this.client.send('/app/hello', opt_headers, msg);
+
+        this.client.send(topic, opt_headers, msg);
     } else {
         console.error("Send error: SockJsClient is disconnected");
     }

@@ -45,7 +45,7 @@ class MultipleMarkerPopup extends React.Component {
                                     {icon(device)} {device.type} {device.serialNumber}
 
                                     < Icon name={'plus'} color='teal' size={'large'}
-                                        onClick={() => showHideModalAction(this.props.dispatch, {showModal}, device)}/>
+                                           onClick={() => showHideModalAction(this.props.dispatch, {showModal}, device)}/>
 
                                 </div>
 
@@ -63,14 +63,14 @@ class MultipleMarkerPopup extends React.Component {
             <Popup size={'big'}>
                 <div>
                     <div>
-                        <SockJsClient url='http://localhost:8080/gs-guide-websocket' topics={['/topic/greetings']}
+                        {/* <SockJsClient url='http://localhost:8080/gs-guide-websocket' topics={['/topic/greetings']}
                                       onMessage={(msg) => {
                                           console.log(msg)
                                           generalPopup(msg)
                                       }}
                                       ref={(client) => {
                                           this.clientRef = client
-                                      }}/>
+                                      }}/>*/}
 
                     </div>
                     {listOfItems()}

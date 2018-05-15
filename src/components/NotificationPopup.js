@@ -21,7 +21,7 @@ class NotificationPopup extends React.Component {
 
         }, timeoutLength)
     }
-    handleClose = () => this.props.dispatch(showNotificationAction(this.props.dispatch, false))
+    handleClose = () => showNotificationAction(this.props.dispatch, false)
 
     render() {
 //const timeoutLength = 2500
@@ -29,12 +29,12 @@ class NotificationPopup extends React.Component {
         return (
             <Popup
                    content={this.props.msg}
-
                    open={this.props.showNotif}
                    onClose={this.handleClose}
                 //onOpen={this.handleOpen}
                    position='bottom right'
                    //inverted
+                closeIcon
             />
 
         )

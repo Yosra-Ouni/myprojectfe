@@ -12,14 +12,15 @@ import MySidebar from "./MySideBar"
 import MarkerLayer from './MarkerLayer'
 import NotificationPopup from './NotificationPopup'
 import SockJsClient from './SockJsClient'
+import GlobalNotification from './GlobalNotification'
 import L from 'leaflet'
 import {initBoundsAction} from '../actions/initBoundsAction'
 import {deleteBoundsStoreAction} from '../actions/deleteBoundsStoreAction'
+import {globalNotificationAction} from '../actions/globalNotificationAction'
 import D1 from '../../public/icons/device.png'
 import D2 from '../../public/icons/devices.png'
 import DC from '../../public/icons/dc.png'
-//import Beforeunload from 'react-beforeunload'
-//import {displayEquipmentsAction} from '../actions/displayEquipmentsAction'
+
 
 
 @connect((store) => {
@@ -33,7 +34,8 @@ import DC from '../../public/icons/dc.png'
         showNotif: store.mainReducer.showNotif,
         msg: store.mainReducer.msg,
         alarms: store.mainReducer.alarms,
-        bounds: store.mainReducer.bounds
+        bounds: store.mainReducer.bounds,
+        initBoundActionFulField: store.mainReducer.initBoundActionFulField
     }
 })
 
@@ -50,8 +52,18 @@ class MyMap extends React.Component {
     constructor(props) {
         super(props)
         this.updateBounds = this.updateBounds.bind(this)
+    }
+
+    componentDidMount() {
+        this.getInitBounds()
 
     }
+
+    componentWillUnmount() {
+        console.log("component unmounted")
+
+    }
+
 
     deleteData() {
         let bounds = this.map.leafletElement.getBounds()
@@ -99,92 +111,66 @@ class MyMap extends React.Component {
 
     }
 
-/* sortPerEquipmentType() {
-        if (this.props.dataMap != undefined) {
-            let devices = [];
-            let dcs = [];
-            this.props.dataMap.forEach((items, index, mapObj) => {
-                items.map((item, i) => {
-                    if (item.type == "device"){
-                        devices.push(item)
-                    }else {
-                        dcs.push(item)
-                    }
-                })
-            })
+    render() {
+        const showNotif = true
+        let markericon = L.icon({
+            iconUrl: D1,
+            iconSize: [24, 24]
+        })
+        let markericon2 = L.icon({
+            iconUrl: DC,
+            iconSize: [24, 24]
+        })
+        let icon = (device) => {
+            if (device.type === "device") return markericon
+            else if (device.type === "dc") return markericon2
         }
+        let position = [this.state.lat, this.state.lng]
+        let min = 1
+        let max = 10
+        const random = Math.floor(min + Math.random() * (max - min))
+        console.log(this.props.boundsRequest)
+        let notif = (msg) => {
+            globalNotificationAction(this.props.dispatch, msg,true )
+        }
+        let connectSockJsClientToAllTopic = () => {
+            if (this.props.initBoundActionFulField === true) {
+                return (<SockJsClient url='http://localhost:8080/gs-guide-websocket' topics={['/topic/all']}
+                                      headers={{hash: this.state.hash}}
+                                      onMessage={(msg) => {
+                                          notif(msg)
+                                      }}
+                                      ref={(client) => {
+                                          this.clientRef = client
+                                      }}/>)
+            } else {
+                return <div></div>
+            }
+        }
+        return (
+            <div>
+                {connectSockJsClientToAllTopic()}
+                <Map center={position} zoom={this.state.zoom} ref={(ref) => {
+                    this.map = ref;
+                }} onLoad={this.getInitBounds} onMoveEnd={this.updateBounds}>
+                    <TileLayer
+                        attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                        url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png"/>
+
+                    {/*  <MyCmp x ={}/>*/}
+                    <MarkerLayer dataMap={this.props.dataMap} hash={this.state.hash}/>
+                    <EquipmentModal modalOpen={this.props.showModal} random={random}/>
+                    <GlobalNotification ></GlobalNotification>
+                    <AlarmsModal showActionModal={this.props.showActionModal} alarms={this.props.alarms}/>
+                    <NotificationPopup showNotif={this.props.showNotif} msg={this.props.msg}/>
+                    <Control position="topright">
+                        <MySidebar dispatch={this.props.dispatch} dataMap={this.props.dataMap}
+                                   bounds={this.props.bounds}/>
+                    </Control>
+                </Map>
+            </div>
+        )
     }
-*/
-
-
-componentDidMount()
-{
-    this.getInitBounds()
-
-}
-
-componentWillUnmount()
-{
-    console.log("component unmounted")
-
-}
-
-render()
-{
-    const showNotif = true
-    const markericon = L.icon({
-        iconUrl: D1,
-        iconSize: [24, 24]
-    })
-    const markericon2 = L.icon({
-        iconUrl: DC,
-        iconSize: [24, 24]
-    })
-    const icon = (device) => {
-        if (device.type === "device") return markericon
-        else if (device.type === "dc") return markericon2
-    }
-    const position = [this.state.lat, this.state.lng]
-    const min = 1
-    const max = 10
-    const random = Math.floor(min + Math.random() * (max - min))
-    console.log(this.props.boundsRequest)
-    //const MyCmp = (x,y) => null
-
-    return (
-        <div>
-            <SockJsClient url='http://localhost:8080/gs-guide-websocket' topics={['/topic/all']}
-                          headers={{hash: this.state.hash}}
-                          onMessage={(msg) => {
-                              console.log(msg)
-
-                          }}
-                          ref={(client) => {
-                              this.clientRef = client
-                          }}/>
-
-
-            <Map center={position} zoom={this.state.zoom} ref={(ref) => {
-                this.map = ref;
-            }} onLoad={this.getInitBounds} onMoveEnd={this.updateBounds}>
-                <TileLayer
-                    attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-                    url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png"/>
-
-                {/*  <MyCmp x ={}/>*/}
-                <MarkerLayer dataMap={this.props.dataMap} hash={this.state.hash}/>
-                <EquipmentModal modalOpen={this.props.showModal} random={random}/>
-                <AlarmsModal showActionModal={this.props.showActionModal} alarms={this.props.alarms}/>
-                <NotificationPopup showNotif={this.props.showNotif} msg={this.props.msg}/>
-
-                <Control position="topright">
-                    <MySidebar dispatch={this.props.dispatch} dataMap={this.props.dataMap}
-                               bounds={this.props.bounds}/>
-                </Control>
-            </Map>
-        </div>
-    )
-}
 }
 
 export default MyMap

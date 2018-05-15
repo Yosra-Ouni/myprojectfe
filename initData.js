@@ -1,6 +1,7 @@
 export const data = {
 
-    mainReducer : {
+    mainReducer: {
+        initBoundActionFulField: false,
         devices: [
             {
                 "name": "ICA",
@@ -12,7 +13,7 @@ export const data = {
                         "lat": 51.506338,
                         "lon": -0.130978
                     },
-                on : true
+                on: true
             },
             {
                 "name": "Trafalgar Studios",
@@ -24,7 +25,7 @@ export const data = {
                         "lat": 51.516699,
                         "lon": -0.127609
                     },
-                on:true
+                on: true
             },
             {
                 "name": "Cambridge Theatre",
@@ -36,7 +37,7 @@ export const data = {
                         "lat": 51.506699,
                         "lon": -0.127609
                     },
-                on:true
+                on: true
             },
             {
                 "name": "Sports Direct",
@@ -48,36 +49,42 @@ export const data = {
                         "lat": 51.515900,
                         "lon": -0.137930
                     },
-                on:true
+                on: true
             }
         ]
-       , dcs: [
-            {"name": "dc1",
+        , dcs: [
+            {
+                "name": "dc1",
                 "gps":
                     {
                         "lat": 51.558893,
-                        "lon":  -0.115818
+                        "lon": -0.115818
                     }
             },
-            {"name": "dc2",
+            {
+                "name": "dc2",
                 "gps":
                     {
                         "lat": 51.719800,
                         "lon": 0.336697
-                    }},
-            {"name": "dc3",
+                    }
+            },
+            {
+                "name": "dc3",
                 "gps":
                     {
                         "lat": 51.743256,
-                        "lon":-0.283812
-                    }},
-            {"name": "dc4",
+                        "lon": -0.283812
+                    }
+            },
+            {
+                "name": "dc4",
                 "gps":
                     {
                         "lat": 51.350656,
-                        "lon":-0.460875
+                        "lon": -0.460875
                     }
             }
-         ]
+        ]
     }
 }
