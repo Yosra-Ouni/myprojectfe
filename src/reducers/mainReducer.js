@@ -60,12 +60,17 @@ const mainReducer = (state = data, action) => {
                 msg: {$set: action.payload.msg}
             })
         }
-        case  'ALARMS_ACTION' : {
+        case  'ALARMS_ACTION_FULFILLED' : {
             return update(state, {
                 deviceId: {$set: action.payload.deviceId},
                 alarms: {$set: action.payload.alarms}
             })
 
+        }
+        case 'ALL_ALARMS_ACTION_FULFILLED' : {
+            return update(state, {
+                alarms: {$set: action.payload.alarms}
+            })
         }
         case 'SHOW_HIDE_ALARMS_MODAL_ACTION': {
             return update(state, {
@@ -78,11 +83,16 @@ const mainReducer = (state = data, action) => {
         }
         case 'GLOBAL_NOTIFICATION_ACTION' : {
             return update(state, {
+                showGlobalNotif: {$set: action.payload.showGlobalNotif},
                 msg: {$set: action.payload.msg},
-                showGlobalNotif: {$set: action.payload.showGlobalNotif}
             })
         }
-
+        case 'MARKER_POPUP_ACTION':{
+            return update(state , {
+                showPopup: {$set: action.payload.showPopup},
+                deviceToPopup : {$set: action.payload.device},
+            })
+        }
 
         default:
             return state

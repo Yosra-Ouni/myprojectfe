@@ -2,13 +2,13 @@ import React from 'react'
 import {connect} from 'react-redux'
 import store from '../store'
 import 'semantic-ui-css/semantic.min.css'
-import {Input, Button, Icon, Sidebar, Popup} from 'semantic-ui-react'
+import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
+import {Input, Button, Icon, Sidebar, Popup, Segment, Menu, Image, Header} from 'semantic-ui-react'
 import Control from 'react-leaflet-control'
 import {Map, TileLayer, Marker, MapControl,} from 'react-leaflet'
 import MultipleMarkerPopup from "./MultipleMarkerPopup"
 import EquipmentModal from './EquipmentModal'
 import AlarmsModal from './AlarmsModal'
-import MySidebar from "./MySideBar"
 import MarkerLayer from './MarkerLayer'
 import NotificationPopup from './NotificationPopup'
 import SockJsClient from './SockJsClient'
@@ -20,8 +20,13 @@ import {globalNotificationAction} from '../actions/globalNotificationAction'
 import D1 from '../../public/icons/device.png'
 import D2 from '../../public/icons/devices.png'
 import DC from '../../public/icons/dc.png'
-
-
+import {showDcsOnly} from "../actions/showDcsOnly"
+import {showHideAlarmsModalAction} from "../actions/showHideAlarmsModalAction"
+import {showDevicesOnly} from "../actions/showDevicesOnly"
+import SideBarAction from '../actions/SideBarAction'
+import {alarmsAction} from "../actions/alarmsAction"
+import {allAlarmsAction} from "../actions/allAlarmsAction"
+import {toastr} from 'react-redux-toastr'
 
 @connect((store) => {
     return {
@@ -30,12 +35,14 @@ import DC from '../../public/icons/dc.png'
         data1: store.mainReducer.data1,
         showModal: store.mainReducer.showModal,
         showActionModal: store.mainReducer.showActionModal,
+        showGlobalNotif: store.mainReducer.showGlobalNotif,
         dataMap: store.mainReducer.dataMap,
         showNotif: store.mainReducer.showNotif,
         msg: store.mainReducer.msg,
         alarms: store.mainReducer.alarms,
         bounds: store.mainReducer.bounds,
-        initBoundActionFulField: store.mainReducer.initBoundActionFulField
+        initBoundActionFulField: store.mainReducer.initBoundActionFulField,
+        showPopup: store.mainReducer.showPopup
     }
 })
 
@@ -44,10 +51,11 @@ class MyMap extends React.Component {
     state = {
         lat: 51.505,
         lng: -0.09,
-        zoom: 12,
-        hash: this.hash()
-
+        zoom: 14,
+        hash: this.hash(),
+        visible: false
     }
+
 
     constructor(props) {
         super(props)
@@ -64,6 +72,7 @@ class MyMap extends React.Component {
 
     }
 
+    toggleVisibility = () => this.setState({visible: !this.state.visible})
 
     deleteData() {
         let bounds = this.map.leafletElement.getBounds()
@@ -73,12 +82,10 @@ class MyMap extends React.Component {
     }
 
     hash() {
-        /* Simple hash function. */
         var a = 1, c = 0, h, o;
         var s = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5);
         if (s) {
             a = 0;
-            /*jshint plusplus:false bitwise:false*/
             for (h = s.length - 1; h >= 0; h--) {
                 o = s.charCodeAt(h);
                 a = (a << 6 & 268435455) + o + (o << 14);
@@ -97,6 +104,8 @@ class MyMap extends React.Component {
         let boundsRequest = {'bounds': bounds, 'hash': this.state.hash}
         initBoundsAction(this.props.dispatch, boundsRequest, alarms)
         console.log(bounds)
+        this.map.leafletElement.zoomControl.setPosition('bottomright')
+
     }
 
     updateBounds() {
@@ -112,7 +121,12 @@ class MyMap extends React.Component {
     }
 
     render() {
+        const {visible} = this.state
+        const showActionModal = true
         const showNotif = true
+        const showGlobalNotif = true
+        const alarms = []
+
         let markericon = L.icon({
             iconUrl: D1,
             iconSize: [24, 24]
@@ -130,14 +144,17 @@ class MyMap extends React.Component {
         let max = 10
         const random = Math.floor(min + Math.random() * (max - min))
         console.log(this.props.boundsRequest)
-        let notif = (msg) => {
-            globalNotificationAction(this.props.dispatch, msg,true )
+        const notif = (msg) => {
+            globalNotificationAction(this.props.dispatch, showGlobalNotif, msg)
+            toastr.light('Notifiaction', {component: GlobalNotification, timeOut: 10000 })
+           //let marker = new L.Marker(msg.gps, {bounceOnAdd: true}).addTo(this.map.leafletElement);
         }
         let connectSockJsClientToAllTopic = () => {
             if (this.props.initBoundActionFulField === true) {
                 return (<SockJsClient url='http://localhost:8080/gs-guide-websocket' topics={['/topic/all']}
                                       headers={{hash: this.state.hash}}
                                       onMessage={(msg) => {
+                                          console.log(msg)
                                           notif(msg)
                                       }}
                                       ref={(client) => {
@@ -149,25 +166,49 @@ class MyMap extends React.Component {
         }
         return (
             <div>
-                {connectSockJsClientToAllTopic()}
-                <Map center={position} zoom={this.state.zoom} ref={(ref) => {
-                    this.map = ref;
-                }} onLoad={this.getInitBounds} onMoveEnd={this.updateBounds}>
-                    <TileLayer
-                        attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-                        url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png"/>
+                <Sidebar as={Menu} animation='push' width='thin' direction='left' visible={visible}
+                         icon='labeled' vertical inverted>
+                    <Menu.Item name='dot circle outline' onClick={() => {
+                        showDevicesOnly(this.props.dispatch, this.props.bounds, alarms)
+                    }}>
+                        <Icon name='dot circle outline'/>
+                        devices
+                    </Menu.Item>
+                    <Menu.Item name='database' onClick={() => {
+                        showDcsOnly(this.props.dispatch, this.props.bounds, alarms)
+                    }}>
+                        <Icon name='database'/>
+                        dcs
+                    </Menu.Item>
+                    <Menu.Item name='bell outline' onClick={() => {
+                        allAlarmsAction(this.props.dispatch, alarms)
+                        showHideAlarmsModalAction(this.props.dispatch, showActionModal)
+                    }}>
+                        <Icon name='bell outline'/>
+                        alarms
+                    </Menu.Item>
+                </Sidebar>
 
-                    {/*  <MyCmp x ={}/>*/}
-                    <MarkerLayer dataMap={this.props.dataMap} hash={this.state.hash}/>
-                    <EquipmentModal modalOpen={this.props.showModal} random={random}/>
-                    <GlobalNotification ></GlobalNotification>
-                    <AlarmsModal showActionModal={this.props.showActionModal} alarms={this.props.alarms}/>
-                    <NotificationPopup showNotif={this.props.showNotif} msg={this.props.msg}/>
-                    <Control position="topright">
-                        <MySidebar dispatch={this.props.dispatch} dataMap={this.props.dataMap}
-                                   bounds={this.props.bounds}/>
-                    </Control>
-                </Map>
+                <Sidebar.Pusher as={Segment}>
+
+                    <Button onClick={this.toggleVisibility}><Icon name='bars'/> Menu</Button>
+                    {connectSockJsClientToAllTopic()}
+                    <Map center={position} zoom={this.state.zoom} ref={(ref) => {
+                        this.map = ref;
+                    }} onLoad={this.getInitBounds} onMoveEnd={this.updateBounds}>
+
+                        <TileLayer
+                            attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                            url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png"/>
+
+                        <MarkerLayer dataMap={this.props.dataMap} hash={this.state.hash}
+                                     showPopup={this.props.showPopup}/>
+                        <EquipmentModal modalOpen={this.props.showModal} random={random}msg={this.props.msg}/>
+                        <AlarmsModal showActionModal={this.props.showActionModal} alarms={this.props.alarms}/>
+
+
+                    </Map>
+                </Sidebar.Pusher>
             </div>
         )
     }

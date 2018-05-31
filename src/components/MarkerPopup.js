@@ -13,11 +13,14 @@ import {showHideAlarmsModalAction} from '../actions/showHideAlarmsModalAction'
 import {alarmsAction} from '../actions/alarmsAction'
 import EquipmentModal from './EquipmentModal'
 import NotificationPopup from './NotificationPopup'
+import {markerPopupAction} from "../actions/markerPopupAction"
+import {toastr} from "react-redux-toastr";
 
 
 @connect((store) => {
     return {
-        alarms: store.mainReducer.alarms
+        alarms: store.mainReducer.alarms,
+        //device : store.mainReducer.device
     }
 })
 class MarkerPopup extends React.Component {
@@ -25,7 +28,23 @@ class MarkerPopup extends React.Component {
     constructor(props) {
         super(props)
     }
-    //handleClose = () => this.setState({showPopup: false})
+
+    iconColor(device) {
+        if (device.status != null) {
+            console.log(device.status)
+            if (device.status.toUpperCase() == "ACTIVATED") {
+                return "green"
+            }
+            else if (device.status.toUpperCase() == "INACTIVE") {
+                return "red"
+            }
+        }
+        else {
+            return "black";
+        }
+    }
+
+
     render() {
         const min = 1
         const max = 10
@@ -33,21 +52,26 @@ class MarkerPopup extends React.Component {
         const showModal = false
         const showActionModal = true
         const showNotif = true
-
+        console.log("======>", this.props)
         const alarms = []
         const generalPopup = (msg) => {
-            this.props.dispatch(showNotificationAction(this.props.dispatch, showNotif, msg))
-            // this.props.alarms.push(msg)
-            //this.props.dispatch(alarmsAction(this.props.dispatch, this.props.device.id, alarms))
+            showNotificationAction(this.props.dispatch, showNotif, msg)
+            toastr.error('Alarm',{
+                timeOut: 10000,
+                component: () => (
+                    <NotificationPopup msg={msg}/>
+                )
+            })
+
         }
         return (
-            <Popup maxHeight={'150'}>
+            <Popup maxHeight={'150'} flowing autoClose={false} closeOnClick={false}
+                   onClose={() => markerPopupAction(this.props.dispatch, false)}>
                 <div>
                     <div>
-                        <SockJsClient url='http://localhost:8080/gs-guide-websocket' topics={['/topic/greetings']}
-                                     x
+                        <SockJsClient url='http://localhost:8080/gs-guide-websocket' topics={['/user/queue/alarms','/topic/alarms']}
+                                      headers={{deviceId: this.props.device.serialNumber}}
                                       onMessage={(msg) => {
-                                          console.log(msg)
                                           generalPopup(msg)
                                       }}
                                       ref={(client) => {
@@ -55,21 +79,26 @@ class MarkerPopup extends React.Component {
                                       }}/>
 
                     </div>
-                    <Icon name={"selected radio"}/>{this.props.device.type} {this.props.device.serialNumber}
-                    {this.props.device.status} <br/>
+                    <Icon name={"selected radio"} color={this.iconColor(this.props.device)}
+                          size={"large"}/>{this.props.device.type} {this.props.device.serialNumber}
+                    <br/>
                     <Icon name={"marker"}/> ( {this.props.device.gps.lat} , {this.props.device.gps.lng} ) <br/>
                     <Icon name={"bell"}/> {random} {alarms.length} Alarms <br/>
                     <Icon name={"location arrow"}/> {this.props.device.address} <br/>
                     <Icon name={"map"}/> {this.props.device.region} <br/>
                     <div>
-                        <Button content={' Show Popup'} size={'tiny'} color='teal'
-                                onClick={() => this.props.dispatch(showHideModalAction(this.props.dispatch, {showModal}, this.props.device))}/>
+                        <Button content={' Show Details'} size={'tiny'} color='teal'
+                                onClick={() => {
+                                    showHideModalAction(this.props.dispatch, {showModal}, this.props.device)
+                                }
+                                }/>
 
                         <Button size={'tiny'} content={' Alarms'} secondary
                                 onClick={() => {
-                                    //this.props.dispatch(alarmsAction(this.props.dispatch, this.props.device.id, alarms))
-                                    this.props.dispatch(showHideAlarmsModalAction(this.props.dispatch, showActionModal))
-                                }}/>
+                                    alarmsAction(this.props.dispatch, this.props.device.serialNumber, alarms)
+                                    showHideAlarmsModalAction(this.props.dispatch, showActionModal, this.props.alarms)
+                                }
+                                }/>
                     </div>
                 </div>
             </Popup>
