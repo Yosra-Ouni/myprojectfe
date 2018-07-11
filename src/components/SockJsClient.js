@@ -13,6 +13,7 @@ class SockJsClient extends React.Component {
         onDisconnect: () => {
             console.log("byeeeeee")
         },
+
         getRetryInterval: (count) => {
             return 1000 * count;
         },
@@ -20,7 +21,7 @@ class SockJsClient extends React.Component {
         subscribeHeaders: {},
         autoReconnect: false,
         debug: false,
-       //the channels
+        //the channels
     }
 
     static propTypes = {
@@ -37,7 +38,7 @@ class SockJsClient extends React.Component {
     }
 
     constructor(props) {
-            super(props);
+        super(props);
 
         this.state = {
             connected: false
@@ -76,16 +77,16 @@ class SockJsClient extends React.Component {
 
 
             </div>
-    );
+        );
 
     }
 
     _initStompClient = () => {
         this.client = Stomp.over(new SockJS(this.props.url));
         if (!this.props.debug) {
-        this.client.debug = () => {
-    };
-    }
+            this.client.debug = () => {
+            };
+        }
     }
 
     _cleanUp = () => {
@@ -96,57 +97,59 @@ class SockJsClient extends React.Component {
 
     _log = (msg) => {
         if (this.props.debug) {
-        console.log(msg);
-    }
+            console.log(msg);
+        }
     }
 
     connect = () => {
         this._initStompClient();
         console.log("init done ")
         this.client.connect(this.props.headers, () => {
-        this.setState({connected: true});
-        this.props.topics.forEach((topic) => {
-        this.subscribe(topic,function (greeting) {
-        console.log(JSON.parse(greeting.body).content);
-        console.log("i'm in connect")
-    });
-    });
-        this.props.onConnect();
-    }, (error) => {
-        if (this.state.connected) {
-        this._cleanUp();
-        this.props.onDisconnect();
-    }
-        if (this.props.autoReconnect) {
-        this._timeoutId = setTimeout(this.connect, this.props.getRetryInterval(this.retryCount++));
-    }
-    });
+            this.setState({connected: true});
+            console.log('==============' + JSON.stringify(this.props.headers))
+            this.props.topics.forEach((topic) => {
+                this.subscribe(topic, function (Notif) {
+                    console.log('+++++++++++++++++++++' + JSON.parse(Notif));
+                    console.log("i'm in connect")
+                });
+            });
+            this.props.onConnect();
+        }, (error) => {
+            if (this.state.connected) {
+                this._cleanUp();
+                this.props.onDisconnect();
+            }
+            if (this.props.autoReconnect) {
+                this._timeoutId = setTimeout(this.connect, this.props.getRetryInterval(this.retryCount++));
+            }
+        });
         console.log("socket connected")
     }
 
     disconnect = () => {
         if (this._timeoutId) {
-        clearTimeout(this._timeoutId);
-    }
+            clearTimeout(this._timeoutId);
+        }
         if (this.state.connected) {
-        this.subscriptions.forEach((subid, topic) => {
-        this.unsubscribe(topic);
-    });
-        this.client.disconnect(() => {
-        this._cleanUp();
-        this.props.onDisconnect();
-        this._log("Stomp client is successfully disconnected!");
-    });
-    }
+            this.subscriptions.forEach((subid, topic) => {
+                this.unsubscribe(topic);
+            });
+            this.client.disconnect(() => {
+                this._cleanUp();
+                this.props.onDisconnect();
+                this._log("Stomp client is successfully disconnected!");
+            });
+        }
     }
 
     subscribe = (topic) => {
         if (!this.subscriptions.has(topic)) {
-        let sub = this.client.subscribe(topic, (msg) => {
-        this.props.onMessage(JSON.parse(msg.body), topic);
-    }, Lo.slice(this.props.subscribeHeaders));
-        this.subscriptions.set(topic, sub);
-    }
+            let sub = this.client.subscribe(topic, (msg) => {
+                this.props.onMessage(JSON.parse(msg.body), topic);
+                console.log(JSON.parse(msg.body))
+            }, Lo.slice(this.props.subscribeHeaders));
+            this.subscriptions.set(topic, sub);
+        }
     }
 
     unsubscribe = (topic) => {
@@ -157,12 +160,12 @@ class SockJsClient extends React.Component {
 
     sendMessage = (topic, msg, opt_headers = {}) => {
         if (this.state.connected) {
-        //'app/hello' just to test instead of topic
-        this.client.send('/app/hello', opt_headers, msg);
-    } else {
-        console.error("Send error: SockJsClient is disconnected");
-    }
-    }
-    }
 
-    export default SockJsClient;
+            this.client.send(topic, opt_headers, msg);
+        } else {
+            console.error("Send error: SockJsClient is disconnected");
+        }
+    }
+}
+
+export default SockJsClient;

@@ -5,7 +5,11 @@ import 'semantic-ui-css/semantic.min.css'
 import {Button, Icon, popup} from 'semantic-ui-react'
 import Control from 'react-leaflet-control'
 import {Marker, Popup} from 'react-leaflet'
+import {markerPopupAction} from "../actions/markerPopupAction"
 import {showHideModalAction} from "../actions/showHideModalAction"
+import SockJsClient from './SockJsClient'
+import {showNotificationAction} from "../actions/showNotificationAction"
+import MarkerPopup from "./MarkerPopup"
 
 @connect((store) => {
     return {
@@ -14,43 +18,72 @@ import {showHideModalAction} from "../actions/showHideModalAction"
 })
 
 class MultipleMarkerPopup extends React.Component {
+    iconColor(device) {
+        if (device.status != null) {
+            console.log(device.status)
+            if (device.status.toUpperCase() == "ACTIVATED") {
+                return "green"
+            }
+            else if (device.status.toUpperCase() == "INACTIVE") {
+                return "red"
+            }
+        }
+        else {
+            return "black";
+        }
+    }
 
     render() {
-        const showModal = false
+        let showModal = false
+        let showNotif = true
+        let showPopup = true
         const icon = (device) => {
-            if (device.type === "device") return <Icon size={"large"} name={"selected radio"}/>
+            if (device.type === "device") return <Icon color={this.iconColor(device)} size={"large"} name={"selected radio"}/>
             else if (device.type === "dc") return <Icon name={"database"}/>
+        }
+        let generalPopup = (msg) => {
+           showNotificationAction(this.props.dispatch, showNotif, msg)
         }
         const listOfItems = () => {
             console.log()
             if (this.props.items != undefined) {
                 return (
-                    <ul>
-                        {this.props.items.forEach((device) => {
+                    <div>
+                        {this.props.items.map((device, i) => {
                             console.log(device)
-                            return [(
+                            return (
+                                <div key={i}>
+                                    {icon(device)} {device.type} {device.serialNumber}
 
-                                        <div key={i}>
-                                            {icon(device)}
-                                            {device.type}
-                                            {device.id}
-                                            <Button content='Show Popup' primary size={'mini'}
-                                                    onClick={() => this.props.dispatch(showHideModalAction(this.props.dispatch, {showModal}, device))}/>
-                                        </div>
+                                    < Icon name={'plus'} color='teal' size={'large'}
+                                           onClick={() => markerPopupAction(this.props.dispatch, showPopup, device,this.props.items)}/>
 
-                            )]
+                                </div>
+
+                            )
                         })
 
                         }
-                    </ul>
+                    </div>
                 )
 
             }
         }
 
         return (
-            <Popup>
+            <Popup size={'big'}>
                 <div>
+                    <div>
+                        {/* <SockJsClient url='http://localhost:8080/gs-guide-websocket' topics={['/topic/greetings']}
+                                      onMessage={(msg) => {
+                                          console.log(msg)
+                                          generalPopup(msg)
+                                      }}
+                                      ref={(client) => {
+                                          this.clientRef = client
+                                      }}/>*/}
+
+                    </div>
                     {listOfItems()}
                 </div>
             </Popup>

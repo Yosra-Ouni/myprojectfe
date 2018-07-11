@@ -1,12 +1,8 @@
 import { combineReducers } from 'redux'
 import mainReducer from './mainReducer'
-import reducer from './reducer'
-//import MarkerReducer from './MarkerReducer'
 import {routerReducer } from 'react-router-redux'
-
+import {reducer as toastrReducer} from 'react-redux-toastr'
 const reducers = combineReducers({
-
-    mainReducer , reducer
+    mainReducer,toastr: toastrReducer
 });
-
 export default reducers

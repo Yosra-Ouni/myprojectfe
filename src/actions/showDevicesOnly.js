@@ -1,16 +1,17 @@
+
 import axios from 'axios'
 
-export const initBoundsAction = (dispatch, bounds, alarms) => {
+export const showDevicesOnly = (dispatch, bounds, alarms) => {
     return dispatch({
-        type: 'INIT_BOUNDS_ACTION',
-        payload: axios.post('http://localhost:8080/api/equipments/all', bounds)
+        type: 'SHOW_DEVICES_ONLY',
+        payload: axios.post('http://localhost:8080/api/equipments/devices', bounds)
             .then(({data}) => {
                 const dataMap = new Map()
                 let alarms = data.alarms
                 let bounds= data.bounds
                 console.log(data)
                 data.devices.map((equipment, index) => {
-                   // console.log(equipment)
+                    // console.log(equipment)
                     let key = equipment.gps
                     if (!(dataMap.has(`${key.lat},${key.lng}`))) {
                         let values = []
@@ -24,7 +25,7 @@ export const initBoundsAction = (dispatch, bounds, alarms) => {
                     }
 
                 })
-                return {dataMap, alarms ,bounds}
+                return {dataMap, alarms,bounds}
 
             })
 
